@@ -55,5 +55,5 @@ packages = ["mcp_route_reliability"]
 mypy_path = "src"
 
 [[tool.mypy.overrides]]
-module = "rank_bm25"
+module = ["rank_bm25", "sklearn.*"]
 ignore_missing_imports = true
