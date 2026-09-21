@@ -294,6 +294,19 @@ class Annotation(StrictModel):
     tool_corpus_hash: str = Field(min_length=1)
 
 
+    @model_validator(mode="after")
+    def validate_annotation_semantics(self) -> Self:
+        if len(set(self.relevant_tool_ids)) != len(self.relevant_tool_ids):
+            raise ValueError("annotation relevant_tool_ids must be unique")
+        if self.should_abstain and self.abstain_reason is None:
+            raise ValueError("abstaining annotations require a reason")
+        if not self.should_abstain and self.abstain_reason is not None:
+            raise ValueError("routing annotations cannot carry an abstention reason")
+        if self.abstain_reason == "no_match" and self.relevant_tool_ids:
+            raise ValueError("no_match annotations cannot contain relevant tools")
+        return self
+
+
 class DisagreementRecord(StrictModel):
     schema_version: Literal["1.0"] = "1.0"
     query_id: str = Field(min_length=1)
