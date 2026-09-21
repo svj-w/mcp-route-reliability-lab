@@ -1,0 +1,11 @@
+MCP Route Reliability Lab Original Data License
+
+Original queries, annotations, dataset documentation, and original tool
+descriptions created specifically for this repository are licensed under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+This license does not replace or override the licenses of upstream Tool Schemas.
+Each redistributed or referenced upstream schema retains its original license and
+attribution, as recorded in data/sources.csv and the corresponding ToolRecord.
+Material without clear redistribution permission must not be included.
