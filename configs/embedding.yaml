@@ -1,0 +1,6 @@
+router:
+  type: embedding
+  model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  revision: main
+  device: cpu
+  top_k: 5
