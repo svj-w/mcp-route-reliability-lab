@@ -34,7 +34,7 @@ from mcp_route_reliability.confidence.policies import (
     build_policy_artifact,
     select_policy,
 )
-from mcp_route_reliability.confidence.reasons import ReasonHintConfig
+from mcp_route_reliability.confidence.reasons import ReasonHintConfig, infer_reason_hint
 from mcp_route_reliability.datasets import load_queries, load_tools
 from mcp_route_reliability.evaluation.bootstrap import MetricRow, grouped_bootstrap
 from mcp_route_reliability.evaluation.calibration import (
@@ -68,7 +68,12 @@ from mcp_route_reliability.reporting import (
     errors_csv_rows,
     render_figures,
 )
+from mcp_route_reliability.routers.base import Router
 from mcp_route_reliability.routers.bm25 import BM25Router
+from mcp_route_reliability.routers.embedding import (
+    EmbeddingRouter,
+    SentenceTransformerProvider,
+)
 from mcp_route_reliability.runtime import apply_policy
 from mcp_route_reliability.validation import (
     get_validation_profile,
@@ -90,7 +95,9 @@ class ConfigError(ValueError):
 
 class BenchmarkConfig(StrictModel):
     schema_version: Literal["1.0"] = "1.0"
-    router: Literal["bm25"]
+    router: Literal["bm25", "embedding"]
+    model_name: str | None = None
+    model_revision: str = "main"
     profile: Literal["fixture", "v0.1", "production"]
     seed: int
     top_k: int = Field(ge=1)
@@ -172,7 +179,19 @@ def _route_all(
     queries: Sequence[QueryCase],
 ) -> list[RouterPrediction]:
     query_hash = _query_set_hash(queries)
-    router = BM25Router()
+    router: Router
+    if config.router == "bm25":
+        router = BM25Router()
+    else:
+        if not config.model_name:
+            raise ConfigError("embedding config requires model_name")
+        router = EmbeddingRouter(
+            SentenceTransformerProvider(
+                config.model_name,
+                revision=config.model_revision,
+                device="cpu",
+            )
+        )
     return [
         router.rank(query.to_inference_query(), tools, config.top_k, query_hash)
         for query in queries
@@ -511,9 +530,8 @@ def _build_benchmark(
         minimum_accepted=minimum_accepted,
     )
     calibrator_payload = fitted.to_payload()
-    calibrator_payload["reason_hint_config"] = _fixture_reason_config(
-        len(calibration_cases)
-    ).model_dump(mode="json")
+    reason_hint_config = _fixture_reason_config(len(calibration_cases))
+    calibrator_payload["reason_hint_config"] = reason_hint_config.model_dump(mode="json")
     source_commit = "working-tree"
     provenance = PolicyProvenance(
         router_id=predictions[0].router_id,
@@ -529,6 +547,33 @@ def _build_benchmark(
     )
     empirical_policy = build_policy_artifact(selection, provenance, policy_kind="empirical")
     conservative_policy = build_policy_artifact(selection, provenance, policy_kind="conservative")
+    if settings.profile == "v0.1":
+        empirical_policy = PolicyArtifact.model_validate(
+            empirical_policy.model_copy(
+                update={
+                    "policy_id": f"exploratory-v0.1-{empirical_policy.policy_id}",
+                    "available": False,
+                    "unavailable_reason": "exploratory_v0_1",
+                    "threshold": None,
+                    "selected_accepted_count": 0,
+                    "empirical_risk": None,
+                    "risk_upper_bound": None,
+                }
+            ).model_dump()
+        )
+        conservative_policy = PolicyArtifact.model_validate(
+            conservative_policy.model_copy(
+                update={
+                    "policy_id": f"exploratory-v0.1-{conservative_policy.policy_id}",
+                    "available": False,
+                    "unavailable_reason": "exploratory_v0_1",
+                    "threshold": None,
+                    "selected_accepted_count": 0,
+                    "empirical_risk": None,
+                    "risk_upper_bound": None,
+                }
+            ).model_dump()
+        )
     if settings.profile == "fixture":
         empirical_policy = empirical_policy.model_copy(
             update={"policy_id": f"non-production-fixture-{empirical_policy.policy_id}"}
@@ -616,7 +661,12 @@ def _build_benchmark(
                 if selected_policy.available
                 and selected_policy.threshold is not None
                 and test_probability[index] >= selected_policy.threshold
-                else "uncertain"
+                else infer_reason_hint(
+                    test_cases[index].to_inference_query(),
+                    test_predictions[index],
+                    test_features[index],
+                    reason_hint_config,
+                )
             ),
             language=cases_by_id[row.query_id].language,
             case_type=cases_by_id[row.query_id].case_type,
@@ -624,6 +674,20 @@ def _build_benchmark(
         for index, row in enumerate(errors)
         if row.is_routing_error
     )
+    if settings.profile == "fixture":
+        profile_limitation = (
+            "The fixture uses minimum accepted N=3 and is explicitly non-production."
+        )
+    elif settings.profile == "v0.1":
+        profile_limitation = (
+            "V0.1 contains 100 author-created, class-balanced queries and is explicitly "
+            "non-production."
+        )
+    else:
+        profile_limitation = (
+            "The production-size profile remains a benchmark artifact, not a safety "
+            "certification."
+        )
     bundle = EvaluationBundle(
         dataset_version=settings.profile,
         dataset_hash=canonical_sha256(queries),
@@ -652,11 +716,11 @@ def _build_benchmark(
         robustness_slices=(),
         errors=error_exports,
         limitations=(
-            "The fixture uses minimum accepted N=3 and is explicitly non-production.",
+            profile_limitation,
             "Synthetic class balance may differ from production traffic.",
         ),
         commands=(
-            f"mrrl benchmark --config {settings.router}.yaml --tools TOOLS "
+            f"mrrl benchmark --config configs/{settings.router}.yaml --tools TOOLS "
             "--queries QUERIES --run-dir RUN",
         ),
     )

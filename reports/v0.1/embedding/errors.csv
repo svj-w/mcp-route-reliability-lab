@@ -1,0 +1,24 @@
+query_id,query_text,gold_tool_ids,top_k_tool_ids,decision,confidence,reason_hint,language,case_type
+v01_q_070,播放下一首歌曲（场景 36）,,git.diff_staged|filesystem.read_text_file|filesystem.edit_file|reasoning.sequential_thinking|git.diff_unstaged,abstain,0.551774,no_match,zh,no_match
+v01_q_071,Append a fact without creating a duplicate entity (scenario 36),memory.add_observations,memory.create_entities|memory.add_observations|memory.create_relations|memory.open_nodes|reasoning.sequential_thinking,abstain,0.807707,ambiguous,en,hard_negative
+v01_q_073,"Handle a time task, but the object and action are unspecified (scenario 37)",time.convert_time,time.convert_time|time.get_current_time|git.log|memory.create_entities|reasoning.sequential_thinking,abstain,0.770064,ambiguous,en,clarify
+v01_q_074,连接两个已有实体，不要创建实体（场景 38）,memory.create_relations,memory.create_entities|memory.create_relations|memory.open_nodes|memory.add_observations|git.diff_unstaged,abstain,0.088897,ambiguous,zh,hard_negative
+v01_q_075,Scan a container image (scenario 38),,filesystem.read_text_file|memory.open_nodes|filesystem.read_multiple_files|memory.search_nodes|filesystem.search_files,abstain,0.144446,no_match,en,no_match
+v01_q_076,处理一下 time 内容，但对象和动作还没确定（场景 39）,time.get_current_time,time.convert_time|git.log|time.get_current_time|git.diff_unstaged|git.diff_staged,abstain,0.446638,ambiguous,zh,clarify
+v01_q_077,"Read README, LICENSE, and pyproject together (scenario 39)",filesystem.read_multiple_files,filesystem.read_text_file|filesystem.read_multiple_files|filesystem.search_files|filesystem.write_file|memory.add_observations,abstain,0.292915,ambiguous,en,clear
+v01_q_078,从云盘下载表格（场景 40）,,git.diff_staged|git.show|filesystem.edit_file|memory.open_nodes|web.fetch,abstain,0.200069,no_match,zh,no_match
+v01_q_081,"Handle a git task, but the object and action are unspecified (scenario 41)",git.log,git.diff_unstaged|git.status|git.log|git.diff_staged|git.show,abstain,0.235170,ambiguous,en,clarify
+v01_q_082,只看直接子项，不要递归搜索（场景 42）,filesystem.list_directory,memory.search_nodes|filesystem.search_files|filesystem.read_text_file|web.fetch|memory.open_nodes,abstain,0.100491,ambiguous,zh,hard_negative
+v01_q_083,Plan a driving route (scenario 42),,filesystem.write_file|filesystem.list_directory|filesystem.read_text_file|filesystem.read_multiple_files|filesystem.search_files,abstain,0.557532,no_match,en,no_match
+v01_q_084,处理一下 git 内容，但对象和动作还没确定（场景 43）,git.diff_staged,git.status|git.diff_staged|git.diff_unstaged|git.show|git.log,abstain,0.156400,ambiguous,zh,clarify
+v01_q_086,统计退款订单（场景 44）,,git.diff_staged|git.log|memory.add_observations|reasoning.sequential_thinking|git.show,abstain,0.148640,no_match,zh,no_match
+v01_q_089,"Handle a filesystem task, but the object and action are unspecified (scenario 45)",filesystem.read_multiple_files,git.diff_unstaged|filesystem.list_directory|filesystem.read_multiple_files|filesystem.write_file|git.diff_staged,abstain,0.175523,ambiguous,en,clarify
+v01_q_090,要此刻时间，不是换算某个钟点（场景 46）,time.get_current_time,time.convert_time|time.get_current_time|git.log|reasoning.sequential_thinking|git.diff_unstaged,abstain,0.626004,ambiguous,zh,hard_negative
+v01_q_091,Start face recognition (scenario 46),,git.diff_staged|memory.create_entities|git.diff_unstaged|memory.add_observations|memory.create_relations,abstain,0.149378,ambiguous,en,no_match
+v01_q_092,处理一下 filesystem 内容，但对象和动作还没确定（场景 47）,filesystem.read_text_file,git.diff_unstaged|filesystem.write_file|filesystem.read_multiple_files|git.diff_staged|filesystem.list_directory,abstain,0.107608,ambiguous,zh,clarify
+v01_q_094,浏览器填写表单（场景 48）,,web.fetch|git.diff_staged|filesystem.edit_file|filesystem.read_text_file|git.log,abstain,0.145191,no_match,zh,no_match
+v01_q_095,"Give a commit history list, not one patch (scenario 48)",git.log,git.show|git.log|git.diff_staged|git.status|git.diff_unstaged,abstain,0.762848,ambiguous,en,hard_negative
+v01_q_096,列出 src 目录的直接子项（场景 49）,filesystem.list_directory,filesystem.search_files|filesystem.list_directory|git.diff_staged|git.diff_unstaged|git.show,abstain,0.105475,ambiguous,zh,clear
+v01_q_097,"Handle a memory task, but the object and action are unspecified (scenario 49)",memory.add_observations,reasoning.sequential_thinking|memory.create_entities|memory.add_observations|git.diff_unstaged|git.log,abstain,0.304506,ambiguous,en,clarify
+v01_q_098,只看已 git add 的修改（场景 50）,git.diff_staged,git.show|git.status|git.diff_staged|git.diff_unstaged|filesystem.edit_file,abstain,0.375698,ambiguous,zh,hard_negative
+v01_q_099,Transcribe a meeting recording (scenario 50),,git.diff_staged|git.diff_unstaged|memory.add_observations|git.log|time.convert_time,abstain,0.189046,ambiguous,en,no_match

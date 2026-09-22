@@ -191,6 +191,16 @@ def test_render_figures_writes_four_valid_png_files(tmp_path: Path) -> None:
     assert all(path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n") for path in paths)
 
 
+def test_empty_robustness_is_reported_as_unavailable(tmp_path: Path) -> None:
+    empty = bundle().model_copy(update={"robustness_slices": ()})
+    card = build_reliability_card(empty)
+    assert "No perturbation variants in this dataset" in card
+    robustness = next(
+        path for path in render_figures(empty, tmp_path) if path.name == "robustness.png"
+    )
+    assert robustness.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+
+
 def test_error_csv_rows_include_required_diagnostics() -> None:
     rows = errors_csv_rows(bundle().errors)
     assert rows == [

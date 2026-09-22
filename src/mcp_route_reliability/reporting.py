@@ -231,6 +231,11 @@ def build_reliability_card(bundle: EvaluationBundle) -> str:
             f"{_format_metric(item.decision_flip_rate)} | "
             f"{_format_metric(item.confidence_shift)} |"
         )
+    if not bundle.robustness_slices:
+        lines.append(
+            "| No perturbation variants in this dataset | not_available | "
+            "not_available | not_available | not_available |"
+        )
     lines.extend(
         [
             "",
@@ -347,21 +352,33 @@ def render_figures(bundle: EvaluationBundle, output_dir: Path) -> list[Path]:
     conditions = [item.condition for item in bundle.robustness_slices]
     positions = list(range(len(conditions)))
     width = 0.35
-    axis.bar(
-        [value - width / 2 for value in positions],
-        [item.top1_flip_rate for item in bundle.robustness_slices],
-        width,
-        label="Top-1 flip",
-    )
-    axis.bar(
-        [value + width / 2 for value in positions],
-        [item.decision_flip_rate for item in bundle.robustness_slices],
-        width,
-        label="Decision flip",
-    )
-    axis.set_xticks(positions, conditions)
+    if bundle.robustness_slices:
+        axis.bar(
+            [value - width / 2 for value in positions],
+            [item.top1_flip_rate for item in bundle.robustness_slices],
+            width,
+            label="Top-1 flip",
+        )
+        axis.bar(
+            [value + width / 2 for value in positions],
+            [item.decision_flip_rate for item in bundle.robustness_slices],
+            width,
+            label="Decision flip",
+        )
+        axis.set_xticks(positions, conditions)
+        axis.legend()
+    else:
+        axis.text(
+            0.5,
+            0.5,
+            "No perturbation variants in this dataset",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=axis.transAxes,
+        )
+        axis.set_xticks([])
+        axis.set_ylim(0.0, 1.0)
     axis.set(title="Paired robustness", ylabel="Rate")
-    axis.legend()
     path = output_dir / "robustness.png"
     figure.tight_layout()
     figure.savefig(path, dpi=150)

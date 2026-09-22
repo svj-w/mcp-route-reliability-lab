@@ -1,6 +1,25 @@
-router:
-  type: embedding
-  model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-  revision: main
-  device: cpu
-  top_k: 5
+{
+  "schema_version": "1.0",
+  "router": "embedding",
+  "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "model_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+  "profile": "v0.1",
+  "seed": 20260921,
+  "top_k": 5,
+  "splits": {
+    "development": "development",
+    "calibration": "calibration",
+    "test": "test"
+  },
+  "policy_method": "logistic",
+  "selected_policy_kind": "empirical",
+  "target_risk": 0.05,
+  "minimum_accepted": 30,
+  "fixture_minimum_accepted": 3,
+  "bootstrap_replicates": 1000,
+  "fixture_bootstrap_replicates": 100,
+  "report": {
+    "figures": true,
+    "reliability_bins": 5
+  }
+}

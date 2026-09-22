@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 
@@ -27,7 +28,7 @@ def run_benchmark(run_dir: Path) -> dict[str, object]:
         [
             "benchmark",
             "--config",
-            str(ROOT / "configs" / "bm25.yaml"),
+            str(ROOT / "configs" / "fixture-bm25.yaml"),
             "--tools",
             str(FIXTURES / "tools.jsonl"),
             "--queries",
@@ -70,6 +71,16 @@ def test_cpu_fixture_benchmark_is_frozen_bound_and_reproducible(tmp_path: Path) 
     }
     assert expected_files <= {path.name for path in first_dir.iterdir()}
     assert len(list((first_dir / "figures").glob("*.png"))) == 4
+
+    error_rows = list(csv.DictReader((first_dir / "errors.csv").open(encoding="utf-8")))
+    assert error_rows
+    assert {row["reason_hint"] for row in error_rows} <= {
+        "no_match",
+        "ambiguous",
+        "insufficient_information",
+        "uncertain",
+    }
+    assert any(row["reason_hint"] != "uncertain" for row in error_rows)
 
     metrics = load_json(first_dir / "metrics.json")
     lifecycle = metrics["lifecycle"]
