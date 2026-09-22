@@ -83,6 +83,10 @@ def load_tools(path: Path) -> list[ToolRecord]:
 def load_queries(path: Path) -> list[QueryCase]:
     return _load_records(path, QueryCase)
 
+
+def load_annotations(path: Path) -> list[Annotation]:
+    return _load_records(path, Annotation)
+
 class AgreementStatistic(StrictModel):
     value: float | None
     available: bool
@@ -245,8 +249,16 @@ def build_disagreement_records(
             raise ValueError(f"{query_id}: primary and secondary annotators must be independent")
         if len({first.tool_corpus_hash, second.tool_corpus_hash, final.tool_corpus_hash}) != 1:
             raise ValueError(f"{query_id}: annotation corpus hashes must match")
-        first_label = (first.relevant_tool_ids, first.should_abstain, first.abstain_reason)
-        second_label = (second.relevant_tool_ids, second.should_abstain, second.abstain_reason)
+        first_label = (
+            frozenset(first.relevant_tool_ids),
+            first.should_abstain,
+            first.abstain_reason,
+        )
+        second_label = (
+            frozenset(second.relevant_tool_ids),
+            second.should_abstain,
+            second.abstain_reason,
+        )
         if first_label != second_label:
             rows.append(
                 DisagreementRecord(

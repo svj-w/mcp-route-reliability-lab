@@ -156,6 +156,28 @@ figures/                      reliability, risk-coverage, method, robustness PNG
 Checked-in V0.1 artifacts live under `reports/v0.1/bm25/` and
 `reports/v0.1/embedding/`.
 
+## V1.0 candidate data — human review pending
+
+`data/v1-candidate/` is a deterministic, production-profile candidate with 40
+tools, 300 bilingual base queries, and 90 grouped perturbation variants. It is not a
+stable V1.0 release and does not replace the canonical V0.1 files. The release gate
+still requires a real second human to complete the blinded 100-query assignment and
+the primary author to recheck all 180 Clarify, Hard Negative, and No-match bases.
+
+```powershell
+python scripts/build_v1_candidate.py
+
+mrrl validate `
+  --tools data/v1-candidate/tools.json `
+  --queries data/v1-candidate/queries.jsonl `
+  --profile production
+```
+
+The exact handoff, freeze, agreement, recheck, and adjudication commands are in
+`data/v1-candidate/ANNOTATION_HANDOFF.md`. Import commands reject missing rows,
+modified query text, unknown tools, incorrect corpus hashes, non-independent second
+labels, and attempts to overwrite frozen raw artifacts.
+
 ## Evaluate an external router
 
 Export one schema `1.1` JSONL prediction per query, including ordered candidates,
@@ -201,9 +223,9 @@ records its Apache-2.0/MIT transition explicitly.
 
 ## Roadmap
 
-- Expand to 40–60 tools, 300 bilingual base queries, and 90 grouped variants.
-- Obtain a blinded second annotation and report agreement before adjudication.
+- Complete the blinded second annotation and 180-query primary recheck, then retain
+  and adjudicate every label disagreement.
 - Compare imported production routers without weakening provenance gates.
-- Freeze V1.0 hashes, rerun all baselines, add CI on Python 3.11/3.12, and publish a
-  release only after the full definition of done passes.
-
+- Freeze V1.0 hashes, rerun all baselines, and publish only after the full definition
+  of done passes. Python 3.11/3.12 CI already covers lint, types, tests, deterministic
+  candidate regeneration, production-profile validation, and an offline benchmark.

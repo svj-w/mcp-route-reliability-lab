@@ -1,0 +1,1290 @@
+[
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.create_directory",
+    "name": "Create Directory",
+    "description": "Create a directory and any missing parent directories, succeeding if it already exists.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Directory path"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.directory_tree",
+    "name": "Directory Tree",
+    "description": "Return a recursive JSON tree of files and directories with optional exclusions.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Root directory path"
+        },
+        "excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Glob patterns to exclude"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.edit_file",
+    "name": "Edit File",
+    "description": "Apply exact line-based replacements and return a git-style diff.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "File path"
+        },
+        "edits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "oldText": {
+                "type": "string",
+                "description": "Exact text to find"
+              },
+              "newText": {
+                "type": "string",
+                "description": "Replacement text"
+              }
+            },
+            "required": [
+              "oldText",
+              "newText"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Exact text replacements"
+        },
+        "dryRun": {
+          "type": "boolean",
+          "description": "Preview without writing",
+          "default": false
+        }
+      },
+      "required": [
+        "path",
+        "edits"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.get_file_info",
+    "name": "Get File Info",
+    "description": "Return file or directory metadata such as type, size, timestamps, and permissions.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "File or directory path"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.list_allowed_directories",
+    "name": "List Allowed Directories",
+    "description": "List the directories that the filesystem server is permitted to access.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.list_directory",
+    "name": "List Directory",
+    "description": "List files and directories immediately inside one directory.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Directory path"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.list_directory_with_sizes",
+    "name": "List Directory with Sizes",
+    "description": "List immediate directory entries with file sizes, sorted by name or size.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Directory path"
+        },
+        "sortBy": {
+          "type": "string",
+          "enum": [
+            "name",
+            "size"
+          ],
+          "default": "name",
+          "description": "Entry sort order"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.move_file",
+    "name": "Move File",
+    "description": "Move or rename a file or directory without overwriting an existing destination.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Source path"
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination path"
+        }
+      },
+      "required": [
+        "source",
+        "destination"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.read_media_file",
+    "name": "Read Media File",
+    "description": "Read one image, audio, or other binary file as a base64 MCP content block.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Media file path"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.read_multiple_files",
+    "name": "Read Multiple Files",
+    "description": "Read multiple text files in one call and return each result with its path.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File paths"
+        }
+      },
+      "required": [
+        "paths"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.read_text_file",
+    "name": "Read Text File",
+    "description": "Read one text file completely, or return only its first or last N lines.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "File path"
+        },
+        "tail": {
+          "type": "integer",
+          "description": "Return only the last N lines"
+        },
+        "head": {
+          "type": "integer",
+          "description": "Return only the first N lines"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.search_files",
+    "name": "Search Files",
+    "description": "Recursively find files and directories whose relative paths match a glob.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Search root"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Glob pattern"
+        },
+        "excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Excluded globs"
+        }
+      },
+      "required": [
+        "path",
+        "pattern"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "filesystem.write_file",
+    "name": "Write File",
+    "description": "Create a text file or completely overwrite an existing file.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Destination path"
+        },
+        "content": {
+          "type": "string",
+          "description": "Complete content"
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/filesystem",
+    "domain": "filesystem",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/filesystem/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.add",
+    "name": "Git Add",
+    "description": "Add selected file contents to the Git staging area.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Paths to stage"
+        }
+      },
+      "required": [
+        "repo_path",
+        "files"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.branch",
+    "name": "List Git Branches",
+    "description": "List local, remote, or all branches with optional commit containment filters.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "branch_type": {
+          "type": "string",
+          "enum": [
+            "local",
+            "remote",
+            "all"
+          ],
+          "description": "Which branches to list"
+        },
+        "contains": {
+          "type": "string",
+          "description": "Optional commit that branches must contain"
+        },
+        "not_contains": {
+          "type": "string",
+          "description": "Optional commit that branches must not contain"
+        }
+      },
+      "required": [
+        "repo_path",
+        "branch_type"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.checkout",
+    "name": "Git Checkout",
+    "description": "Switch the local repository to an existing branch.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "branch_name": {
+          "type": "string",
+          "description": "Existing branch name"
+        }
+      },
+      "required": [
+        "repo_path",
+        "branch_name"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.commit",
+    "name": "Git Commit",
+    "description": "Record staged changes in a local Git repository with a commit message.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "message": {
+          "type": "string",
+          "description": "Commit message"
+        }
+      },
+      "required": [
+        "repo_path",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.create_branch",
+    "name": "Create Git Branch",
+    "description": "Create a new Git branch from the current or an optional base branch.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "branch_name": {
+          "type": "string",
+          "description": "New branch name"
+        },
+        "base_branch": {
+          "type": "string",
+          "description": "Optional base branch"
+        }
+      },
+      "required": [
+        "repo_path",
+        "branch_name"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.diff",
+    "name": "Git Diff",
+    "description": "Show differences between branches, commits, or another Git target.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        },
+        "target": {
+          "type": "string",
+          "description": "Branch, commit, or diff target"
+        },
+        "context_lines": {
+          "type": "integer",
+          "default": 3
+        }
+      },
+      "required": [
+        "repo_path",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.diff_staged",
+    "name": "Git Diff Staged",
+    "description": "Show changes staged for the next commit.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Git repository path"
+        },
+        "context_lines": {
+          "type": "integer",
+          "description": "Context lines",
+          "default": 3
+        }
+      },
+      "required": [
+        "repo_path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.diff_unstaged",
+    "name": "Git Diff Unstaged",
+    "description": "Show working-directory changes that have not been staged.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Git repository path"
+        },
+        "context_lines": {
+          "type": "integer",
+          "description": "Context lines",
+          "default": 3
+        }
+      },
+      "required": [
+        "repo_path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.log",
+    "name": "Git Log",
+    "description": "Show commit history with optional count and date boundaries.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Git repository path"
+        },
+        "max_count": {
+          "type": "integer",
+          "description": "Maximum commits",
+          "default": 10
+        },
+        "start_timestamp": {
+          "type": "string",
+          "description": "Optional start date"
+        },
+        "end_timestamp": {
+          "type": "string",
+          "description": "Optional end date"
+        }
+      },
+      "required": [
+        "repo_path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.reset",
+    "name": "Git Reset",
+    "description": "Unstage all currently staged changes without discarding working-tree edits.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Repository path"
+        }
+      },
+      "required": [
+        "repo_path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.show",
+    "name": "Git Show",
+    "description": "Show metadata and patch contents for one commit or revision.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Git repository path"
+        },
+        "revision": {
+          "type": "string",
+          "description": "Revision"
+        }
+      },
+      "required": [
+        "repo_path",
+        "revision"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "git.status",
+    "name": "Git Status",
+    "description": "Show working-tree and staging-area status for a local Git repository.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": "Git repository path"
+        }
+      },
+      "required": [
+        "repo_path"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/git",
+    "domain": "git",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/git/src/mcp_server_git/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.add_observations",
+    "name": "Add Observations",
+    "description": "Append textual observations to existing knowledge-graph entities.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityName": {
+                "type": "string",
+                "description": "Entity name"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Observations"
+              }
+            },
+            "required": [
+              "entityName",
+              "contents"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Observation batches"
+        }
+      },
+      "required": [
+        "observations"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.create_entities",
+    "name": "Create Entities",
+    "description": "Create multiple new entities in the persistent knowledge graph.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Entity name"
+              },
+              "entityType": {
+                "type": "string",
+                "description": "Entity type"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Observation contents"
+              }
+            },
+            "required": [
+              "name",
+              "entityType",
+              "observations"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Entities"
+        }
+      },
+      "required": [
+        "entities"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.create_relations",
+    "name": "Create Relations",
+    "description": "Create active-voice relations between existing graph entities.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "Source entity name"
+              },
+              "to": {
+                "type": "string",
+                "description": "Target entity name"
+              },
+              "relationType": {
+                "type": "string",
+                "description": "Active-voice relation type"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "relationType"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Relations"
+        }
+      },
+      "required": [
+        "relations"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.delete_entities",
+    "name": "Delete Entities",
+    "description": "Delete named knowledge-graph entities and all relations attached to them.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "entityNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Entity names to delete"
+        }
+      },
+      "required": [
+        "entityNames"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.delete_observations",
+    "name": "Delete Observations",
+    "description": "Delete selected textual observations from existing knowledge-graph entities.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "deletions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityName": {
+                "type": "string",
+                "description": "Entity name"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Observation texts to delete"
+              }
+            },
+            "required": [
+              "entityName",
+              "observations"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "deletions"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.delete_relations",
+    "name": "Delete Relations",
+    "description": "Delete exact relations while preserving their endpoint entities.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "Entity where the relation starts"
+              },
+              "to": {
+                "type": "string",
+                "description": "Entity where the relation ends"
+              },
+              "relationType": {
+                "type": "string",
+                "description": "Active-voice relation type"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "relationType"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "relations"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.open_nodes",
+    "name": "Open Nodes",
+    "description": "Retrieve graph nodes by exact entity names.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Exact names"
+        }
+      },
+      "required": [
+        "names"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.read_graph",
+    "name": "Read Graph",
+    "description": "Read every entity and relation in the knowledge graph.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "memory.search_nodes",
+    "name": "Search Nodes",
+    "description": "Search graph entity names, types, and observations by free text.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Free-text graph query"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/memory",
+    "domain": "memory",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/memory/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "reasoning.sequential_thinking",
+    "name": "Sequential Thinking",
+    "description": "Develop, revise, branch, and extend numbered reasoning steps.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "thought": {
+          "type": "string",
+          "description": "Current thinking step"
+        },
+        "nextThoughtNeeded": {
+          "type": "boolean",
+          "description": "Whether another thought is needed"
+        },
+        "thoughtNumber": {
+          "type": "integer",
+          "description": "Current thought number"
+        },
+        "totalThoughts": {
+          "type": "integer",
+          "description": "Estimated total thoughts"
+        },
+        "isRevision": {
+          "type": "boolean",
+          "description": "Whether this revises a thought"
+        },
+        "revisesThought": {
+          "type": "integer",
+          "description": "Thought being revised"
+        },
+        "branchFromThought": {
+          "type": "integer",
+          "description": "Branch point"
+        },
+        "branchId": {
+          "type": "string",
+          "description": "Branch identifier"
+        },
+        "needsMoreThoughts": {
+          "type": "boolean",
+          "description": "Whether more thoughts are needed"
+        }
+      },
+      "required": [
+        "thought",
+        "nextThoughtNeeded",
+        "thoughtNumber",
+        "totalThoughts"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/reasoning",
+    "domain": "reasoning",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/sequentialthinking/index.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "time.convert_time",
+    "name": "Convert Time",
+    "description": "Convert one HH:MM wall-clock time between IANA timezones.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "source_timezone": {
+          "type": "string",
+          "description": "Source IANA timezone"
+        },
+        "time": {
+          "type": "string",
+          "description": "24-hour HH:MM time"
+        },
+        "target_timezone": {
+          "type": "string",
+          "description": "Target IANA timezone"
+        }
+      },
+      "required": [
+        "source_timezone",
+        "time",
+        "target_timezone"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/time",
+    "domain": "time",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/time/src/mcp_server_time/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "time.get_current_time",
+    "name": "Get Current Time",
+    "description": "Get current date, time, weekday, and DST status in one IANA timezone.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": "IANA timezone"
+        }
+      },
+      "required": [
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/time",
+    "domain": "time",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/time/src/mcp_server_time/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "utility.echo",
+    "name": "Echo",
+    "description": "Echo one input string unchanged for protocol testing.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Message to echo"
+        }
+      },
+      "required": [
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/everything",
+    "domain": "utility",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/everything/tools/echo.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "utility.get_sum",
+    "name": "Get Sum",
+    "description": "Return the numeric sum of two provided numbers.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "number",
+          "description": "First number"
+        },
+        "b": {
+          "type": "number",
+          "description": "Second number"
+        }
+      },
+      "required": [
+        "a",
+        "b"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/everything",
+    "domain": "utility",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/everything/tools/get-sum.ts",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  },
+  {
+    "schema_version": "1.0",
+    "tool_id": "web.fetch",
+    "name": "Fetch URL",
+    "description": "Fetch one web URL and optionally simplify HTML to bounded Markdown.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "HTTP or HTTPS URL"
+        },
+        "max_length": {
+          "type": "integer",
+          "description": "Maximum characters",
+          "default": 5000
+        },
+        "start_index": {
+          "type": "integer",
+          "description": "Starting character",
+          "default": 0
+        },
+        "raw": {
+          "type": "boolean",
+          "description": "Return raw HTML",
+          "default": false
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "server": "modelcontextprotocol/web",
+    "domain": "web",
+    "source_url": "https://github.com/modelcontextprotocol/servers/blob/d73f99efbfd40c3aa1b61e88728b3d49fb52608f/src/fetch/src/mcp_server_fetch/server.py",
+    "source_commit": "d73f99efbfd40c3aa1b61e88728b3d49fb52608f",
+    "license": "Apache-2.0 OR MIT"
+  }
+]

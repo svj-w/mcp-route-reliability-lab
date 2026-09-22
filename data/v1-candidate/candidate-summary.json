@@ -1,0 +1,42 @@
+{
+  "tool_count": 40,
+  "base_query_count": 300,
+  "variant_count": 90,
+  "total_query_records": 390,
+  "split_base_counts": {
+    "calibration": 100,
+    "development": 100,
+    "test": 100
+  },
+  "language_base_counts": {
+    "en": 150,
+    "zh": 150
+  },
+  "case_type_base_counts": {
+    "clarify": 60,
+    "clear": 100,
+    "hard_negative": 60,
+    "multi_valid": 20,
+    "no_match": 60
+  },
+  "perturbation_counts": {
+    "cross_language": 30,
+    "noise": 30,
+    "paraphrase": 30
+  },
+  "primary_annotation_count": 390,
+  "secondary_assignment_count": 100,
+  "secondary_sample_domain_counts": {
+    "filesystem": 23,
+    "git": 15,
+    "memory": 20,
+    "no_match": 20,
+    "reasoning": 2,
+    "time": 13,
+    "utility": 4,
+    "web": 3
+  },
+  "primary_recheck_count": 180,
+  "tool_corpus_hash": "sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069",
+  "secondary_labels_present": false
+}

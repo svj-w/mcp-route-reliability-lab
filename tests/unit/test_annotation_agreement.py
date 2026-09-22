@@ -95,3 +95,11 @@ def test_agreement_export_requires_independent_annotators() -> None:
 
     with pytest.raises(ValueError, match="independent"):
         build_disagreement_records([first], [second], [adjudicated])
+
+
+def test_tool_set_order_is_not_a_disagreement() -> None:
+    primary = make_annotation("q1", "primary", relevant=("tool.a", "tool.b"))
+    secondary = make_annotation("q1", "secondary", relevant=("tool.b", "tool.a"))
+    adjudicated = make_annotation("q1", "adjudicator", relevant=("tool.a", "tool.b"))
+
+    assert build_disagreement_records([primary], [secondary], [adjudicated]) == []

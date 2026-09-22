@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install core, development, and report dependencies
+        run: python -m pip install -e ".[dev,report]"
+
+      - name: Ruff
+        run: python -m ruff check src tests scripts
+
+      - name: Mypy
+        run: python -m mypy src
+
+      - name: Tests
+        run: python -m pytest -q
+
+      - name: Rebuild and validate V1 candidate
+        run: |
+          python scripts/build_v1_candidate.py
+          git diff --exit-code -- data/v1-candidate
+          mrrl validate \
+            --tools data/v1-candidate/tools.json \
+            --queries data/v1-candidate/queries.jsonl \
+            --profile production \
+            --json
+
+      - name: Offline fixture benchmark
+        env:
+          HF_HUB_OFFLINE: "1"
+          TRANSFORMERS_OFFLINE: "1"
+        run: |
+          mrrl benchmark \
+            --config configs/fixture-bm25.yaml \
+            --tools tests/fixtures/tools.jsonl \
+            --queries tests/fixtures/queries.jsonl \
+            --run-dir runs/ci-fixture \
+            --json
+
+      - name: Verify fixture artifact set
+        run: |
+          test -f runs/ci-fixture/manifest.json
+          test -f runs/ci-fixture/reliability-card.md
+          test -f runs/ci-fixture/figures/risk-coverage.png

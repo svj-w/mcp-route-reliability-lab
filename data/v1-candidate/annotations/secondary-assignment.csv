@@ -1,0 +1,101 @@
+﻿query_id,text,language,relevant_tool_ids,should_abstain,abstain_reason,label_rationale,candidate_conflict_note,annotator_id,tool_corpus_hash
+v01_q_000,读取 README.md 的完整文本（场景 1）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_001,"Handle a git task, but the object and action are unspecified (scenario 1)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_002,只看直接子项，不要递归搜索（场景 2）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_003,Forecast tomorrow's hourly weather (scenario 2),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_004,处理一下 git 内容，但对象和动作还没确定（场景 3）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_005,Add an owns-data-platform observation to Alice (scenario 3),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_006,执行 PostgreSQL 查询（场景 4）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_007,Convert a specified time instead of asking for now (scenario 4),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_008,建立 Alice works_at Acme 的关系（场景 5）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_009,"Handle a filesystem task, but the object and action are unspecified (scenario 5)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_010,要此刻时间，不是换算某个钟点（场景 6）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_011,Generate a poster image (scenario 6),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_012,处理一下 filesystem 内容，但对象和动作还没确定（场景 7）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_013,Recursively find every Python file (scenario 7),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_014,安排日历会议（场景 8）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_015,"Give a commit history list, not one patch (scenario 8)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_016,列出 src 目录的直接子项（场景 9）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_017,"Handle a memory task, but the object and action are unspecified (scenario 9)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_018,只看已 git add 的修改（场景 10）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_019,Control living-room lights (scenario 10),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_020,处理一下 memory 内容，但对象和动作还没确定（场景 11）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_021,Convert 09:30 in New York to Tokyo (scenario 11),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_022,查询股票并下单（场景 12）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_023,"Read three configs together, not one at a time (scenario 12)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_024,查询上海当前时间（场景 13）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_027,Deploy to Kubernetes (scenario 14),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_028,处理一下 filesystem 内容，但对象和动作还没确定（场景 15）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_029,List the ten most recent commits (scenario 15),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_030,识别照片植物（场景 16）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_031,Append a fact without creating a duplicate entity (scenario 16),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_032,显示已暂存的代码差异（场景 17）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_033,"Handle a time task, but the object and action are unspecified (scenario 17)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_034,连接两个已有实体，不要创建实体（场景 18）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_035,Create a Jira issue (scenario 18),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_036,处理一下 time 内容，但对象和动作还没确定（场景 19）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_037,"Read README, LICENSE, and pyproject together (scenario 19)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_038,给 PDF 电子签名（场景 20）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_039,The location is unknown; recursively find **/*.yaml (scenario 20),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_041,"Handle a git task, but the object and action are unspecified (scenario 21)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_042,只看直接子项，不要递归搜索（场景 22）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_043,Set a Redis expiry (scenario 22),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_045,Add an owns-data-platform observation to Alice (scenario 23),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_046,查询快递物流（场景 24）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_047,Convert a specified time instead of asking for now (scenario 24),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_050,要此刻时间，不是换算某个钟点（场景 26）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_051,Send an email attachment (scenario 26),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_053,Recursively find every Python file (scenario 27),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_054,在 Slack 发布公告（场景 28）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_055,"Give a commit history list, not one patch (scenario 28)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_057,"Handle a memory task, but the object and action are unspecified (scenario 29)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_058,只看已 git add 的修改（场景 30）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_059,Book a flight (scenario 30),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_060,处理一下 memory 内容，但对象和动作还没确定（场景 31）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_061,Convert 09:30 in New York to Tokyo (scenario 31),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_062,翻译成法语语音（场景 32）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_063,"Read three configs together, not one at a time (scenario 32)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_064,查询上海当前时间（场景 33）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_065,"Handle a filesystem task, but the object and action are unspecified (scenario 33)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_066,只读一个日志的最后 40 行，不要批量读取（场景 34）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_067,Send a text message (scenario 34),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_069,List the ten most recent commits (scenario 35),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_070,播放下一首歌曲（场景 36）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_071,Append a fact without creating a duplicate entity (scenario 36),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_072,显示已暂存的代码差异（场景 37）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_073,"Handle a time task, but the object and action are unspecified (scenario 37)",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_074,连接两个已有实体，不要创建实体（场景 38）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_075,Scan a container image (scenario 38),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_076,处理一下 time 内容，但对象和动作还没确定（场景 39）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_078,从云盘下载表格（场景 40）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_087,Convert a specified time instead of asking for now (scenario 44),en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v01_q_088,建立 Alice works_at Acme 的关系（场景 45）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_101,获取名称唯一的图谱节点 Alice（V1 场景 101）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_115,逐步推理，但没有给出要解决的问题（V1 场景 115）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_123,原样回显字符串 health-check-42（V1 场景 123）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_127,获取名称唯一的图谱节点 Alice（V1 场景 127）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_134,"Fetch a page, but no URL is supplied [V1 scenario 134]",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_137,对两个数字求和，不要原样回显（V1 场景 137）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_139,读取 notes.txt；单文件或批量读取工具都能完成（V1 场景 139）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_142,Retrieve the uniquely named graph node Alice [V1 scenario 142],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_144,Read notes.txt; either a single-file or batch reader can return it [V1 scenario 144],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_157,用可修订的编号步骤推演迁移计划（V1 场景 157）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_174,Fetch https://example.com/docs as simplified Markdown [V1 scenario 174],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_176,Read notes.txt; either a single-file or batch reader can return it [V1 scenario 176],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_184,Find every graph record mentioning DataPlatform; reading then filtering is acceptable [V1 scenario 184],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_192,List immediate entries in tmp; extra size metadata is acceptable [V1 scenario 192],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_195,显示提交 a1b2c3d 引入的补丁（V1 场景 195）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_197,显示提交 a1b2c3d 引入的补丁（V1 场景 197）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_203,列出 tmp 的直接子项；附带大小信息也可以（V1 场景 203）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_205,获取名称唯一的图谱节点 Alice（V1 场景 205）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_213,显示提交 a1b2c3d 引入的补丁（V1 场景 213）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_218,"Echo a message, but the message is missing [V1 scenario 218]",en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_236,Read notes.txt; either a single-file or batch reader can return it [V1 scenario 236],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_238,Show the patch introduced by commit a1b2c3d [V1 scenario 238],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_240,Find every graph record mentioning DataPlatform; reading then filtering is acceptable [V1 scenario 240],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_254,List immediate entries in tmp; extra size metadata is acceptable [V1 scenario 254],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_257,计算两个数的和，但缺少一个操作数（V1 场景 257）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_263,列出 tmp 的直接子项；附带大小信息也可以（V1 场景 263）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_270,Find every graph record mentioning DataPlatform; reading then filtering is acceptable [V1 scenario 270],en,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_275,找出所有提到 DataPlatform 的图谱记录；读取全图后筛选也可以（V1 场景 275）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
+v1_q_277,抓取网页，但没有提供 URL（V1 场景 277）,zh,,,,,,,sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069
