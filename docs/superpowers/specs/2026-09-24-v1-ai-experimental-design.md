@@ -43,10 +43,12 @@ recorded so the derived snapshot can be rebuilt.
    for semantic equivalence. The Tool Corpus hash remains the existing hash if
    Tool records do not change; the query-set hash is recomputed.
 
-The raw 85 same-text comparisons may be summarized with agreement statistics,
-clearly labeled as AI-source diagnostics. A 100-row statistic after revisions is
-post-hoc concordance, not independent inter-annotator agreement. Neither is a
-substitute for the original human-review release gate.
+The raw 85 same-text comparisons may be summarized as source-comparison
+diagnostics. Of those, 45 have a same-text AI primary recheck and 40 compare the
+secondary AI row against a generator-provisional primary label; report those
+subgroups separately. A 100-row statistic after revisions is post-hoc
+concordance, not independent inter-annotator agreement. None substitutes for
+the original human-review release gate.
 
 ## Split integrity and evaluation
 
