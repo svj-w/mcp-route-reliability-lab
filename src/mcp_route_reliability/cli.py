@@ -98,7 +98,7 @@ class BenchmarkConfig(StrictModel):
     router: Literal["bm25", "embedding"]
     model_name: str | None = None
     model_revision: str = "main"
-    profile: Literal["fixture", "v0.1", "production"]
+    profile: Literal["fixture", "v0.1", "production", "ai-experimental"]
     seed: int
     top_k: int = Field(ge=1)
     splits: dict[str, str]
@@ -682,6 +682,11 @@ def _build_benchmark(
         profile_limitation = (
             "V0.1 contains 100 author-created, class-balanced queries and is explicitly "
             "non-production."
+        )
+    elif settings.profile == "ai-experimental":
+        profile_limitation = (
+            "AI-annotated synthetic experiment with post-hoc revisions and "
+            "generator-provisional labels; not independent human review or a safety guarantee."
         )
     else:
         profile_limitation = (

@@ -30,10 +30,22 @@ SECONDARY_GROUPS = {
     },
 }
 SECONDARY_RATIONALES = {
-    "git.diff_staged": "The revised request does not specify staged versus unstaged changes; both diff tools remain plausible until clarified.",
-    "filesystem.directory_tree": "The revised request does not distinguish a recursive tree from a direct directory listing; ask which view is wanted.",
-    "memory.open_nodes": "The revised request leaves exact-name opening versus broader node search unresolved; ask for the intended lookup.",
-    "time.convert_time": "The revised request does not distinguish converting a stated time from obtaining the current time; ask for clarification.",
+    "git.diff_staged": (
+        "The revised request does not specify staged versus unstaged changes; "
+        "both diff tools remain plausible until clarified."
+    ),
+    "filesystem.directory_tree": (
+        "The revised request does not distinguish a recursive tree from a direct "
+        "directory listing; ask which view is wanted."
+    ),
+    "memory.open_nodes": (
+        "The revised request leaves exact-name opening versus broader node search "
+        "unresolved; ask for the intended lookup."
+    ),
+    "time.convert_time": (
+        "The revised request does not distinguish converting a stated time from "
+        "obtaining the current time; ask for clarification."
+    ),
 }
 
 
@@ -117,7 +129,9 @@ def main() -> None:
             case_type=case_type, relevant_tool_ids=tool_ids,
             should_abstain=abstain, abstain_reason=reason,
             rationale=rationale,
-            candidate_conflict_note="Post-hoc Tool-schema correction to the provisional multi-valid label.",
+            candidate_conflict_note=(
+                "Post-hoc Tool-schema correction to the provisional multi-valid label."
+            ),
             reviewer_type="ai_posthoc", source_role="secondary_raw",
             source_query_id=query_id,
         ))
@@ -131,7 +145,10 @@ def main() -> None:
                 case_type="clarify", relevant_tool_ids=tool_ids,
                 should_abstain=True, abstain_reason="ambiguous",
                 rationale=f"{query_id}: {SECONDARY_RATIONALES[tool_ids[0]]}",
-                candidate_conflict_note="Post-hoc relabeling against revised primary text; not an independent blind annotation.",
+                candidate_conflict_note=(
+                    "Post-hoc relabeling against revised primary text; "
+                    "not an independent blind annotation."
+                ),
                 reviewer_type="ai_posthoc", source_role="secondary_raw",
                 source_query_id=query_id,
             ))
@@ -139,7 +156,10 @@ def main() -> None:
     if len(keys) != len(set(keys)) or len(decisions) != 52:
         raise ValueError(f"Unexpected decision coverage: {len(decisions)}")
     output.write_text(
-        "".join(row.model_dump_json() + "\n" for row in sorted(decisions, key=lambda d: (d.query_id, d.target))),
+        "".join(
+            row.model_dump_json() + "\n"
+            for row in sorted(decisions, key=lambda d: (d.query_id, d.target))
+        ),
         encoding="utf-8",
     )
     print(f"Wrote {len(decisions)} decisions to {output}")

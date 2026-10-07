@@ -110,5 +110,7 @@ def load_completed_rows(
     if set(result) != expected:
         missing = sorted(expected - set(result))
         extra = sorted(set(result) - expected)
-        raise ValueError(f"{path}: query IDs differ from assignment; missing={missing}, extra={extra}")
+        raise ValueError(
+            f"{path}: query IDs differ from assignment; missing={missing}, extra={extra}"
+        )
     return result

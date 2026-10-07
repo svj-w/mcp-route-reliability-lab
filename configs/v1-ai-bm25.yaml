@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "router": "bm25",
+  "profile": "ai-experimental",
+  "seed": 20260924,
+  "top_k": 5,
+  "splits": {"development": "development", "calibration": "calibration", "test": "test"},
+  "policy_method": "logistic",
+  "selected_policy_kind": "empirical",
+  "target_risk": 0.05,
+  "minimum_accepted": 30,
+  "fixture_minimum_accepted": 3,
+  "bootstrap_replicates": 1000,
+  "fixture_bootstrap_replicates": 100,
+  "report": {"figures": true, "reliability_bins": 5}
+}

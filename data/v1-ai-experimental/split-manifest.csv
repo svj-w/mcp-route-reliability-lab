@@ -1,0 +1,301 @@
+query_id,split,intent_family_key,provenance
+v01_q_000,development,读取 readme.md 的完整文本,generator_provisional
+v01_q_001,calibration,"show changes in the repository at /project, but i haven't said whether to inspect staged or unstaged edits",ai_primary_recheck_imported
+v01_q_002,calibration,"只看直接子项,不要递归搜索",ai_primary_recheck
+v01_q_003,test,forecast tomorrow's hourly weather,ai_primary_recheck
+v01_q_004,calibration,"查看 /project 仓库的改动,但未说明要看已暂存还是未暂存的修改",ai_primary_recheck_imported
+v01_q_005,development,add an owns-data-platform observation to alice,generator_provisional
+v01_q_006,development,执行 postgresql 查询,ai_primary_recheck
+v01_q_007,development,convert a specified time instead of asking for now,ai_primary_recheck
+v01_q_008,calibration,建立 alice works_at acme 的关系,generator_provisional
+v01_q_009,calibration,"show the contents of /project, but i haven't said whether i want only its immediate entries or the full recursive hierarchy",ai_primary_recheck_imported
+v01_q_010,calibration,"要此刻时间,不是换算某个钟点",ai_primary_recheck
+v01_q_011,test,generate a poster image,ai_primary_recheck
+v01_q_012,development,"查看 /project 目录内容,但未说明只看当前一层还是完整的递归目录树",ai_primary_recheck_imported
+v01_q_013,calibration,recursively find every python file,generator_provisional
+v01_q_014,development,安排日历会议,ai_primary_recheck
+v01_q_015,test,"give a commit history list, not one patch",ai_primary_recheck
+v01_q_016,test,列出 src 目录的直接子项,generator_provisional
+v01_q_017,test,"find alice in the knowledge graph, but i haven't said whether 'alice' is the exact entity name or a fuzzy search term",ai_primary_recheck_imported
+v01_q_018,calibration,只看已 git add 的修改,ai_primary_recheck
+v01_q_019,test,control living-room lights,ai_primary_recheck
+v01_q_020,development,"在知识图谱中找 alice,但未说明 alice 是实体的准确名称还是模糊搜索词",ai_primary_recheck_imported
+v01_q_021,test,convert 09:30 in new york to tokyo,generator_provisional
+v01_q_022,calibration,查询股票并下单,ai_primary_recheck
+v01_q_023,calibration,"read three configs together, not one at a time",ai_primary_recheck
+v01_q_024,development,查询上海当前时间,generator_provisional
+v01_q_025,calibration,"show the contents of /project, but i haven't said whether i want only its immediate entries or the full recursive hierarchy",ai_primary_recheck_imported
+v01_q_026,calibration,"只读一个日志的最后 40 行,不要批量读取",ai_primary_recheck
+v01_q_027,calibration,deploy to kubernetes,ai_primary_recheck
+v01_q_028,development,"查看 /project 目录内容,但未说明只看当前一层还是完整的递归目录树",ai_primary_recheck_imported
+v01_q_029,calibration,list the ten most recent commits,generator_provisional
+v01_q_030,test,识别照片植物,ai_primary_recheck
+v01_q_031,development,append a fact without creating a duplicate entity,ai_primary_recheck
+v01_q_032,development,显示已暂存的代码差异,generator_provisional
+v01_q_033,development,"check new york time, but i haven't said whether to show its current time or convert 09:00 in london to new york time",ai_primary_recheck_imported
+v01_q_034,development,"连接两个已有实体,不要创建实体",ai_primary_recheck
+v01_q_035,calibration,create a jira issue,ai_primary_recheck
+v01_q_036,calibration,"查看纽约时间,但未说明是看纽约当前时间,还是把伦敦 09:00 换算成纽约时间",ai_primary_recheck_imported
+v01_q_037,test,"read readme, license, and pyproject together",generator_provisional
+v01_q_038,test,给 pdf 电子签名,ai_primary_recheck
+v01_q_039,development,the location is unknown; recursively find **/*.yaml,ai_primary_recheck_imported
+v01_q_040,development,读取 readme.md 的完整文本,generator_provisional
+v01_q_041,calibration,"show changes in the repository at /project, but i haven't said whether to inspect staged or unstaged edits",ai_primary_recheck_imported
+v01_q_042,calibration,"只看直接子项,不要递归搜索",ai_primary_recheck
+v01_q_043,development,set a redis expiry,ai_primary_recheck
+v01_q_044,calibration,"查看 /project 仓库的改动,但未说明要看已暂存还是未暂存的修改",ai_primary_recheck_imported
+v01_q_045,development,add an owns-data-platform observation to alice,generator_provisional
+v01_q_046,calibration,查询快递物流,ai_primary_recheck
+v01_q_047,development,convert a specified time instead of asking for now,ai_primary_recheck
+v01_q_048,calibration,建立 alice works_at acme 的关系,generator_provisional
+v01_q_049,calibration,"show the contents of /project, but i haven't said whether i want only its immediate entries or the full recursive hierarchy",ai_primary_recheck_imported
+v01_q_050,calibration,"要此刻时间,不是换算某个钟点",ai_primary_recheck
+v01_q_051,calibration,send an email attachment,ai_primary_recheck
+v01_q_052,development,"查看 /project 目录内容,但未说明只看当前一层还是完整的递归目录树",ai_primary_recheck_imported
+v01_q_053,calibration,recursively find every python file,generator_provisional
+v01_q_054,development,在 slack 发布公告,ai_primary_recheck
+v01_q_055,test,"give a commit history list, not one patch",ai_primary_recheck
+v01_q_056,test,列出 src 目录的直接子项,generator_provisional
+v01_q_057,test,"find alice in the knowledge graph, but i haven't said whether 'alice' is the exact entity name or a fuzzy search term",ai_primary_recheck_imported
+v01_q_058,calibration,只看已 git add 的修改,ai_primary_recheck
+v01_q_059,development,book a flight,ai_primary_recheck
+v01_q_060,development,"在知识图谱中找 alice,但未说明 alice 是实体的准确名称还是模糊搜索词",ai_primary_recheck_imported
+v01_q_061,test,convert 09:30 in new york to tokyo,generator_provisional
+v01_q_062,test,翻译成法语语音,ai_primary_recheck
+v01_q_063,calibration,"read three configs together, not one at a time",ai_primary_recheck
+v01_q_064,development,查询上海当前时间,generator_provisional
+v01_q_065,calibration,"show the contents of /project, but i haven't said whether i want only its immediate entries or the full recursive hierarchy",ai_primary_recheck_imported
+v01_q_066,calibration,"只读一个日志的最后 40 行,不要批量读取",ai_primary_recheck
+v01_q_067,calibration,send a text message,ai_primary_recheck
+v01_q_068,development,"查看 /project 目录内容,但未说明只看当前一层还是完整的递归目录树",ai_primary_recheck_imported
+v01_q_069,calibration,list the ten most recent commits,generator_provisional
+v01_q_070,calibration,播放下一首歌曲,ai_primary_recheck
+v01_q_071,development,append a fact without creating a duplicate entity,ai_primary_recheck
+v01_q_072,development,显示已暂存的代码差异,generator_provisional
+v01_q_073,development,"check new york time, but i haven't said whether to show its current time or convert 09:00 in london to new york time",ai_primary_recheck_imported
+v01_q_074,development,"连接两个已有实体,不要创建实体",ai_primary_recheck
+v01_q_075,calibration,scan a container image,ai_primary_recheck
+v01_q_076,calibration,"查看纽约时间,但未说明是看纽约当前时间,还是把伦敦 09:00 换算成纽约时间",ai_primary_recheck_imported
+v01_q_077,test,"read readme, license, and pyproject together",generator_provisional
+v01_q_078,test,从云盘下载表格,ai_primary_recheck
+v01_q_079,development,the location is unknown; recursively find **/*.yaml,ai_primary_recheck
+v01_q_080,development,读取 readme.md 的完整文本,generator_provisional
+v01_q_081,calibration,"show changes in the repository at /project, but i haven't said whether to inspect staged or unstaged edits",ai_primary_recheck_imported
+v01_q_082,calibration,"只看直接子项,不要递归搜索",ai_primary_recheck
+v01_q_083,test,plan a driving route,ai_primary_recheck
+v01_q_084,calibration,"查看 /project 仓库的改动,但未说明要看已暂存还是未暂存的修改",ai_primary_recheck_imported
+v01_q_085,development,add an owns-data-platform observation to alice,generator_provisional
+v01_q_086,calibration,统计退款订单,ai_primary_recheck
+v01_q_087,development,convert a specified time instead of asking for now,ai_primary_recheck
+v01_q_088,calibration,建立 alice works_at acme 的关系,generator_provisional
+v01_q_089,calibration,"show the contents of /project, but i haven't said whether i want only its immediate entries or the full recursive hierarchy",ai_primary_recheck_imported
+v01_q_090,calibration,"要此刻时间,不是换算某个钟点",ai_primary_recheck
+v01_q_091,calibration,start face recognition,ai_primary_recheck
+v01_q_092,development,"查看 /project 目录内容,但未说明只看当前一层还是完整的递归目录树",ai_primary_recheck_imported
+v01_q_093,calibration,recursively find every python file,generator_provisional
+v01_q_094,development,浏览器填写表单,ai_primary_recheck
+v01_q_095,test,"give a commit history list, not one patch",ai_primary_recheck
+v01_q_096,test,列出 src 目录的直接子项,generator_provisional
+v01_q_097,test,"find alice in the knowledge graph, but i haven't said whether 'alice' is the exact entity name or a fuzzy search term",ai_primary_recheck_imported
+v01_q_098,calibration,只看已 git add 的修改,ai_primary_recheck
+v01_q_099,development,transcribe a meeting recording,ai_primary_recheck
+v1_q_100,calibration,scale a kubernetes deployment to five replicas,ai_primary_recheck
+v1_q_101,test,获取名称唯一的图谱节点 alice,ai_posthoc_adjudicated
+v1_q_102,test,"handle a time request, but no timezone or clock time is given",ai_primary_recheck
+v1_q_103,test,"递归查找匹配路径,不是只看一层目录",ai_primary_recheck
+v1_q_104,test,"read three text files together, not one at a time",ai_primary_recheck
+v1_q_105,test,只列出 src 目录的直接子项,generator_provisional
+v1_q_106,calibration,post a message to the team chat,ai_primary_recheck
+v1_q_107,test,显示仓库工作区和暂存区状态,generator_provisional
+v1_q_108,development,"commit the staged work, but no commit message is provided",ai_primary_recheck
+v1_q_109,test,"读取单个文本文件,不要批量读取",ai_primary_recheck
+v1_q_110,test,overwrite build/version.txt with 1.4.0,generator_provisional
+v1_q_111,calibration,把服务部署到云集群,ai_primary_recheck
+v1_q_112,test,return the full nested directory hierarchy as json,ai_primary_recheck
+v1_q_113,development,在知识图谱中创建 alice 和 dataplatform 两个实体,generator_provisional
+v1_q_114,development,create alice and dataplatform as graph entities,generator_provisional
+v1_q_115,test,"逐步推理,但没有给出要解决的问题",ai_primary_recheck
+v1_q_116,calibration,replace one exact paragraph and preserve all other text,ai_primary_recheck
+v1_q_117,calibration,检查尚未暂存的工作区修改,ai_primary_recheck
+v1_q_118,test,recursively find every python file under src,generator_provisional
+v1_q_119,test,显示该文件系统服务器允许访问的所有目录,generator_provisional
+v1_q_120,development,show metadata and patch for commit a1b2c3d,generator_provisional
+v1_q_121,calibration,对客户 postgresql 数据库执行查询,ai_primary_recheck
+v1_q_122,test,append the observation works remotely to alice,generator_provisional
+v1_q_123,development,原样回显字符串 health-check-42,generator_provisional
+v1_q_124,development,forecast hourly weather for next monday,ai_primary_recheck
+v1_q_125,test,创建新分支但不要切换过去,ai_primary_recheck
+v1_q_126,test,"handle a time request, but no timezone or clock time is given",ai_primary_recheck
+v1_q_127,test,获取名称唯一的图谱节点 alice,ai_posthoc_adjudicated
+v1_q_128,development,switch to the existing branch hotfix/login,generator_provisional
+v1_q_129,test,"显示 git 差异,但没有说明暂存状态或比较目标",ai_primary_recheck
+v1_q_130,calibration,click the checkout button in a browser,ai_primary_recheck
+v1_q_131,calibration,计算 19.5 与 22.5 的和,generator_provisional
+v1_q_132,calibration,"change the configuration, but the desired content and edit mode are unspecified",ai_primary_recheck
+v1_q_133,test,更新 crm 中的联系人,ai_primary_recheck
+v1_q_134,development,"fetch a page, but no url is supplied",ai_primary_recheck
+v1_q_135,development,给 alice 追加观察 works remotely,generator_provisional
+v1_q_136,calibration,replace one exact paragraph and preserve all other text,ai_primary_recheck
+v1_q_137,test,"对两个数字求和,不要原样回显",ai_primary_recheck
+v1_q_138,development,run a postgresql query against the customer database,ai_primary_recheck
+v1_q_139,test,读取 notes.txt;单文件或批量读取工具都能完成,generator_provisional
+v1_q_140,development,calculate a driving route on a map,ai_primary_recheck
+v1_q_141,test,只删除 alice owns dataplatform 关系并保留实体,generator_provisional
+v1_q_142,test,retrieve the uniquely named graph node alice,ai_posthoc_adjudicated
+v1_q_143,test,"读取单个文本文件,不要批量读取",ai_primary_recheck
+v1_q_144,test,read notes.txt; either a single-file or batch reader can return it,generator_provisional
+v1_q_145,test,"检查已暂存修改,不看仅工作区修改",ai_primary_recheck
+v1_q_146,calibration,stage files without creating a commit,ai_primary_recheck
+v1_q_147,test,更新 crm 中的联系人,ai_primary_recheck
+v1_q_148,calibration,"create a branch, but the branch name is missing",ai_primary_recheck
+v1_q_149,development,"创建分支,但没有提供分支名",ai_primary_recheck
+v1_q_150,test,show the patch currently staged for commit,generator_provisional
+v1_q_151,test,递归查找 src 下所有 python 文件,generator_provisional
+v1_q_152,development,ocr every page of a scanned pdf,ai_primary_recheck
+v1_q_153,development,取消暂存所有修改但保留本地编辑,generator_provisional
+v1_q_154,test,"update the knowledge graph, but the intended operation is unclear",ai_primary_recheck
+v1_q_155,calibration,把 app.env 中的 debug=true 精确替换为 debug=false 并显示差异,generator_provisional
+v1_q_156,development,"read the file, but no path or number of files is specified",ai_primary_recheck
+v1_q_157,test,用可修订的编号步骤推演迁移计划,generator_provisional
+v1_q_158,development,convert a specified clock time; do not ask for now,ai_primary_recheck
+v1_q_159,development,只显示尚未暂存的修改,generator_provisional
+v1_q_160,development,delete one fact but preserve its entity and relations,ai_primary_recheck
+v1_q_161,test,获取 nvda 的实时股票价格,ai_primary_recheck
+v1_q_162,development,forecast hourly weather for next monday,ai_primary_recheck
+v1_q_163,calibration,把 kubernetes 部署扩容到五个副本,ai_primary_recheck
+v1_q_164,test,compare two named branches rather than show one commit,ai_primary_recheck
+v1_q_165,calibration,列出所有远程 git 分支,generator_provisional
+v1_q_166,calibration,create feature/router from main,generator_provisional
+v1_q_167,development,比较 release/1.0 与 main 的差异,generator_provisional
+v1_q_168,calibration,read assets/logo.png as an image content block,generator_provisional
+v1_q_169,test,"检查已暂存修改,不看仅工作区修改",ai_primary_recheck
+v1_q_170,calibration,send an email to the finance team,ai_primary_recheck
+v1_q_171,calibration,列出所有远程 git 分支,generator_provisional
+v1_q_172,development,"replace the entire file content, not selected lines",ai_primary_recheck
+v1_q_173,test,只删除 alice owns dataplatform 关系并保留实体,generator_provisional
+v1_q_174,calibration,fetch https://example.com/docs as simplified markdown,generator_provisional
+v1_q_175,calibration,读取完整知识图谱,generator_provisional
+v1_q_176,test,read notes.txt; either a single-file or batch reader can return it,generator_provisional
+v1_q_177,test,切换到已有分支 hotfix/login,generator_provisional
+v1_q_178,development,show size and modification time for archive.zip without reading it,generator_provisional
+v1_q_179,calibration,以 json 返回完整嵌套目录层级,ai_primary_recheck
+v1_q_180,calibration,commit the staged changes with message fix parser,generator_provisional
+v1_q_181,test,显示仓库工作区和暂存区状态,generator_provisional
+v1_q_182,development,create an alice owns dataplatform relation,generator_provisional
+v1_q_183,test,"查看 /project:尚未确定是列出当前层内容,还是递归查找匹配 *.md 的路径",ai_primary_recheck_imported
+v1_q_184,development,find every graph record mentioning dataplatform; reading then filtering is acceptable,generator_provisional
+v1_q_185,development,"比较两个命名分支,不是查看单个提交",ai_primary_recheck
+v1_q_186,test,remove the observation works remotely from alice,generator_provisional
+v1_q_187,development,在图谱名称、类型和观察中搜索 platform,generator_provisional
+v1_q_188,development,show the ten most recent commits,generator_provisional
+v1_q_189,development,"删除图谱数据,但没有说明要删除实体、观察还是关系",ai_primary_recheck
+v1_q_190,development,"inspect /project, but i haven't chosen between listing its immediate entries and recursively finding paths matching *.md",ai_primary_recheck_imported
+v1_q_191,test,一次读取 readme.md 和 license 两个文件,generator_provisional
+v1_q_192,development,list immediate entries in tmp; extra size metadata is acceptable,generator_provisional
+v1_q_193,test,删除一条关系但保留两端实体,ai_primary_recheck
+v1_q_194,calibration,"create a branch, but the branch name is missing",ai_primary_recheck
+v1_q_195,test,显示提交 a1b2c3d 引入的补丁,ai_posthoc_adjudicated
+v1_q_196,calibration,inspect metadata without opening file contents,ai_primary_recheck
+v1_q_197,test,显示提交 a1b2c3d 引入的补丁,ai_posthoc_adjudicated
+v1_q_198,development,get the current time in asia/shanghai,generator_provisional
+v1_q_199,calibration,根据文字提示生成产品插画,ai_primary_recheck
+v1_q_200,test,return every graph node and relation without a search term,ai_primary_recheck
+v1_q_201,test,一次读取 readme.md 和 license 两个文件,generator_provisional
+v1_q_202,test,delete the obsolete entity legacyservice and its relations,generator_provisional
+v1_q_203,test,列出 tmp 的直接子项;附带大小信息也可以,generator_provisional
+v1_q_204,calibration,"find matching paths recursively, not just one directory level",ai_primary_recheck
+v1_q_205,test,获取名称唯一的图谱节点 alice,ai_posthoc_adjudicated
+v1_q_206,development,ocr every page of a scanned pdf,ai_primary_recheck
+v1_q_207,test,"修改配置,但没有说明目标内容或编辑方式",ai_primary_recheck
+v1_q_208,test,"switch branches, but the destination branch is missing",ai_primary_recheck
+v1_q_209,calibration,按精确名称打开图谱节点 alice 和 bob,generator_provisional
+v1_q_210,development,list direct children only; do not recurse or glob,ai_primary_recheck
+v1_q_211,calibration,根据文字提示生成产品插画,ai_primary_recheck
+v1_q_212,development,create an alice owns dataplatform relation,generator_provisional
+v1_q_213,test,显示提交 a1b2c3d 引入的补丁,ai_posthoc_adjudicated
+v1_q_214,development,list only the immediate children of src,generator_provisional
+v1_q_215,test,"逐步推理,但没有给出要解决的问题",ai_primary_recheck
+v1_q_216,development,show metadata and patch for commit a1b2c3d,generator_provisional
+v1_q_217,calibration,使用系统包管理器安装软件包,ai_primary_recheck
+v1_q_218,test,"echo a message, but the message is missing",ai_primary_recheck
+v1_q_219,calibration,显示最近十次提交,generator_provisional
+v1_q_220,test,remove the observation works remotely from alice,generator_provisional
+v1_q_221,test,"显示 git 差异,但没有说明暂存状态或比较目标",ai_primary_recheck
+v1_q_222,test,"read three text files together, not one at a time",ai_primary_recheck
+v1_q_223,calibration,向团队聊天群发送消息,ai_primary_recheck
+v1_q_224,calibration,stage src/parser.py and tests/test_parser.py,generator_provisional
+v1_q_225,development,比较 release/1.0 与 main 的差异,generator_provisional
+v1_q_226,development,read the first 20 lines of docs/guide.md,generator_provisional
+v1_q_227,development,把 build/version.txt 完整覆盖为 1.4.0,generator_provisional
+v1_q_228,test,"echo a message, but the message is missing",ai_primary_recheck
+v1_q_229,development,列直接子项并包含文件大小,ai_primary_recheck
+v1_q_230,test,create the nested directory reports/2026/september,generator_provisional
+v1_q_231,test,从镜像启动 docker 容器,ai_primary_recheck
+v1_q_232,development,get the current time in asia/shanghai,generator_provisional
+v1_q_233,calibration,"不重写内容,只重命名已有文件",ai_primary_recheck
+v1_q_234,calibration,"change the configuration, but the desired content and edit mode are unspecified",ai_primary_recheck
+v1_q_235,test,转录附件中的会议音频,ai_primary_recheck
+v1_q_236,test,read notes.txt; either a single-file or batch reader can return it,generator_provisional
+v1_q_237,test,从镜像启动 docker 容器,ai_primary_recheck
+v1_q_238,development,show the patch introduced by commit a1b2c3d,ai_posthoc_adjudicated
+v1_q_239,calibration,读取完整知识图谱,generator_provisional
+v1_q_240,development,find every graph record mentioning dataplatform; reading then filtering is acceptable,generator_provisional
+v1_q_241,calibration,把 draft.md 重命名为 final.md,generator_provisional
+v1_q_242,development,"add two numbers, but one operand is missing",ai_primary_recheck
+v1_q_243,development,返回 src 的递归 json 目录树并排除 __pycache__,generator_provisional
+v1_q_244,calibration,retrieve the live stock price for nvda,ai_primary_recheck
+v1_q_245,development,计算地图驾车路线,ai_primary_recheck
+v1_q_246,development,"replace the entire file content, not selected lines",ai_primary_recheck
+v1_q_247,calibration,把服务部署到云集群,ai_primary_recheck
+v1_q_248,test,"switch branches, but the destination branch is missing",ai_primary_recheck
+v1_q_249,test,把 europe/london 的 09:30 转换到 asia/shanghai,generator_provisional
+v1_q_250,test,show the patch currently staged for commit,generator_provisional
+v1_q_251,calibration,把 app.env 中的 debug=true 精确替换为 debug=false 并显示差异,generator_provisional
+v1_q_252,calibration,read assets/logo.png as an image content block,generator_provisional
+v1_q_253,test,显示该文件系统服务器允许访问的所有目录,generator_provisional
+v1_q_254,development,list immediate entries in tmp; extra size metadata is acceptable,generator_provisional
+v1_q_255,development,"提交已暂存内容,但没有提供提交信息",ai_primary_recheck
+v1_q_256,development,"inspect /project, but i haven't chosen between listing its immediate entries and recursively finding paths matching *.md",ai_primary_recheck_imported
+v1_q_257,development,"计算两个数的和,但缺少一个操作数",ai_primary_recheck
+v1_q_258,test,charge the customer credit card,ai_primary_recheck
+v1_q_259,calibration,"切换分支,但没有提供目标分支",ai_primary_recheck
+v1_q_260,test,charge the customer credit card,ai_primary_recheck
+v1_q_261,calibration,删除过时实体 legacyservice 及其关联关系,generator_provisional
+v1_q_262,development,show only changes that have not been staged,generator_provisional
+v1_q_263,test,列出 tmp 的直接子项;附带大小信息也可以,generator_provisional
+v1_q_264,test,"delete graph data, but the object to remove is ambiguous",ai_primary_recheck
+v1_q_265,calibration,按文件大小列出 downloads 的直接子项,generator_provisional
+v1_q_266,development,"search graph names, types, and observations for platform",generator_provisional
+v1_q_267,development,"读取文件,但没有给出路径或文件数量",ai_primary_recheck
+v1_q_268,development,"show a git diff, but the staged state or comparison target is missing",ai_primary_recheck
+v1_q_269,calibration,"更新知识图谱,但没有说明具体操作",ai_primary_recheck
+v1_q_270,development,find every graph record mentioning dataplatform; reading then filtering is acceptable,generator_provisional
+v1_q_271,test,转录附件中的会议音频,ai_primary_recheck
+v1_q_272,calibration,inspect working-tree edits that are not staged,ai_primary_recheck
+v1_q_273,development,"提交已暂存内容,但没有提供提交信息",ai_primary_recheck
+v1_q_274,calibration,click the checkout button in a browser,ai_primary_recheck
+v1_q_275,calibration,找出所有提到 dataplatform 的图谱记录;读取全图后筛选也可以,generator_provisional
+v1_q_276,test,create a calendar event for tomorrow,ai_primary_recheck
+v1_q_277,development,"抓取网页,但没有提供 url",ai_primary_recheck
+v1_q_278,test,create the nested directory reports/2026/september,generator_provisional
+v1_q_279,calibration,把 draft.md 重命名为 final.md,generator_provisional
+v1_q_280,development,"read the file, but no path or number of files is specified",ai_primary_recheck
+v1_q_281,development,列直接子项并包含文件大小,ai_primary_recheck
+v1_q_282,calibration,commit the staged changes with message fix parser,generator_provisional
+v1_q_283,test,编辑 excel 工作簿中的公式,ai_primary_recheck
+v1_q_284,development,open the exact graph nodes alice and bob,generator_provisional
+v1_q_285,calibration,取消暂存但不要丢弃编辑,ai_primary_recheck
+v1_q_286,calibration,stage src/parser.py and tests/test_parser.py,generator_provisional
+v1_q_287,calibration,"不重写内容,只重命名已有文件",ai_primary_recheck
+v1_q_288,calibration,inspect metadata without opening file contents,ai_primary_recheck
+v1_q_289,test,创建明天的日历事件,ai_primary_recheck
+v1_q_290,test,edit formulas in an excel workbook,ai_primary_recheck
+v1_q_291,test,"切换到已有分支,不要新建分支",ai_primary_recheck
+v1_q_292,development,list direct children only; do not recurse or glob,ai_primary_recheck
+v1_q_293,development,读取 docs/guide.md 的前 20 行,generator_provisional
+v1_q_294,calibration,send an email to the finance team,ai_primary_recheck
+v1_q_295,development,"不读取 archive.zip 内容,只查看大小和修改时间",generator_provisional
+v1_q_296,development,unstage every staged change but keep local edits,generator_provisional
+v1_q_297,calibration,按文件大小列出 downloads 的直接子项,generator_provisional
+v1_q_298,test,return a recursive json tree of src excluding __pycache__,generator_provisional
+v1_q_299,test,从 main 创建 feature/router 分支,generator_provisional

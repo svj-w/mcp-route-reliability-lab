@@ -156,6 +156,74 @@ figures/                      reliability, risk-coverage, method, robustness PNG
 Checked-in V0.1 artifacts live under `reports/v0.1/bm25/` and
 `reports/v0.1/embedding/`.
 
+## V1 AI experimental — not human-reviewed
+
+`data/v1-ai-experimental/` is a reproducible **AI experimental** snapshot built
+from the V1 candidate and two AI-completed CSVs. It has 40 tools, 300 bilingual
+base queries, 90 variants, and 100 bases per Development/Calibration/Test split.
+It is **not** stable V1.0, independent human review, or a production safety
+claim. The original CSVs remain byte-for-byte under `raw/`; the 52 decisions
+and 15 secondary post-hoc revisions are separate from those raw files.
+
+The [Dataset Card](data/v1-ai-experimental/DATASET_CARD.md) explains the
+provenance and template-family split rule. The [annotation report](data/v1-ai-experimental/ANNOTATION_REPORT.md)
+separates 45 same-text AI-vs-AI comparisons, 40 same-text generator-vs-AI
+comparisons, and 100-row post-hoc descriptive concordance. Of 300 final base
+labels, 112 remain generator-provisional. No comparison is presented as
+independent blinded human agreement.
+
+### Frozen Test results
+
+The Test set has 100 bases and their 90 paired variants (190 records). Top-1
+counts Clarify and No-match cases as errors when a tool is emitted.
+
+| Router | Top-1 | MRR | Recall@5 | Brier ↓ | ECE ↓ | Error AUROC ↑ | AURC ↓ | Usable 5% policy |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| BM25 | 0.1737 | 0.2125 | 0.2737 | 0.1120 | 0.0711 | 0.8722 | 0.6364 | No |
+| Multilingual MiniLM | 0.3211 | 0.3932 | 0.4947 | 0.1959 | 0.1159 | 0.7749 | 0.4833 | No |
+
+Both reports use Tool Corpus hash
+`sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069`
+and query-set hash
+`sha256:3e5f030f545dad8386ae98e688d81d16640fe03c7b5838291f9baa5741b7b478`.
+The [BM25 card](reports/v1-ai-experimental/bm25/reliability-card.md) and
+[embedding card](reports/v1-ai-experimental/embedding/reliability-card.md)
+contain risk, error, and limitation details. For example, the embedding router
+ranked `git.show` above the gold `git.log` on `v01_q_015` ("Give a commit history
+list, not one patch"); it also emitted candidates for unsupported weather and
+poster-generation requests. The results expose limitations; they do not make
+the router safe to deploy.
+
+Numbered scenario templates were assigned as whole intent families, avoiding
+cross-split collisions under the documented normalization. This does not prove
+that all semantic paraphrases are isolated. The 90 Test variants share 30 base
+intents, so 190 records are not 190 independent intents.
+
+### Reproduce this experiment
+
+Use Python 3.11/3.12 and the installation instructions above, including the
+embedding extra for the second run. The builder refuses to overwrite an
+existing snapshot; build into a fresh location when verifying regeneration.
+
+```powershell
+python scripts/build_v1_ai_experimental.py --output runs/v1-ai-rebuilt
+python scripts/report_v1_ai_annotations.py
+mrrl validate --tools data/v1-ai-experimental/tools.json `
+  --queries data/v1-ai-experimental/queries.jsonl --profile ai-experimental
+mrrl benchmark --config configs/v1-ai-bm25.yaml `
+  --tools data/v1-ai-experimental/tools.json `
+  --queries data/v1-ai-experimental/queries.jsonl `
+  --run-dir runs/v1-ai-bm25
+mrrl benchmark --config configs/v1-ai-embedding.yaml `
+  --tools data/v1-ai-experimental/tools.json `
+  --queries data/v1-ai-experimental/queries.jsonl `
+  --run-dir runs/v1-ai-embedding
+```
+
+The published reports were generated on Windows with Python 3.11 and the pinned
+multilingual MiniLM revision. These are single runs on synthetic cases, not
+traffic-weighted performance estimates.
+
 ## V1.0 candidate data — human review pending
 
 `data/v1-candidate/` is a deterministic, production-profile candidate with 40

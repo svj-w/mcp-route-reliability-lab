@@ -106,8 +106,21 @@ PRODUCTION_PROFILE = ValidationProfile(
     perturbation_counts={"paraphrase": 30, "cross_language": 30, "noise": 30},
 )
 
+AI_EXPERIMENTAL_PROFILE = ValidationProfile(
+    name="ai-experimental",
+    minimum_tools=40,
+    maximum_tools=40,
+    split_base_counts={"development": 100, "calibration": 100, "test": 100},
+    variant_count=90,
+    allowed_case_types=ALL_CASE_TYPES,
+    language_base_counts={"zh": 150, "en": 150},
+    case_type_base_counts=None,
+    perturbation_counts={"paraphrase": 30, "cross_language": 30, "noise": 30},
+)
+
 VALIDATION_PROFILES: dict[str, ValidationProfile] = {
-    profile.name: profile for profile in (FIXTURE_PROFILE, V0_1_PROFILE, PRODUCTION_PROFILE)
+    profile.name: profile
+    for profile in (FIXTURE_PROFILE, V0_1_PROFILE, PRODUCTION_PROFILE, AI_EXPERIMENTAL_PROFILE)
 }
 
 

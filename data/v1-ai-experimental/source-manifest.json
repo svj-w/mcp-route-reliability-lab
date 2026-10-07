@@ -1,0 +1,39 @@
+{
+  "base_count": 300,
+  "candidate_primary_sha256": "5e08420647734c15931ddc5c58cb81f44a517e52087a61b5416850b49aa6cde2",
+  "candidate_queries_sha256": "491bf1778ec7be59008ca6c87e913e3aeeaf15993ffbf798e1d14e3340665756",
+  "case_type_base_counts": {
+    "clarify": 65,
+    "clear": 100,
+    "hard_negative": 63,
+    "multi_valid": 12,
+    "no_match": 60
+  },
+  "decision_counts": {
+    "final_gold": 37,
+    "secondary_posthoc": 15
+  },
+  "decision_log_sha256": "ab70806bfbf81d0e1bc02b711debd4bc22e180c5f0fd3149f1f719087db79e90",
+  "not_primary_rechecked_count": 120,
+  "primary_raw_sha256": "4497cdb9e0e53ab5d351e93fd5af7990cebc900e95216d6342d67e8b8d339377",
+  "primary_recheck_count": 180,
+  "provenance_counts": {
+    "ai_posthoc_adjudicated": 8,
+    "ai_primary_recheck": 151,
+    "ai_primary_recheck_imported": 29,
+    "generator_provisional": 112
+  },
+  "release": "v1-ai-experimental",
+  "review_status": "AI annotations and AI post-hoc review; not human-reviewed",
+  "schema_version": "1.0",
+  "secondary_posthoc_count": 15,
+  "secondary_raw_count": 100,
+  "secondary_raw_sha256": "9aefbd47bd2cec803da3aedd50a65a9c75bb67370c88e8b7f66fcd2fc24a7990",
+  "split_base_counts": {
+    "calibration": 100,
+    "development": 100,
+    "test": 100
+  },
+  "tool_corpus_hash": "sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069",
+  "variant_count": 90
+}

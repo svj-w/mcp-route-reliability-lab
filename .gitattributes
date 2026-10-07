@@ -1,0 +1,5 @@
+# Preserve exact source bytes and checksum-bound generated artifacts on Windows.
+data/v1-ai-inputs/raw/*.csv -text
+data/v1-ai-inputs/decisions.jsonl -text
+data/v1-ai-experimental/** -text
+reports/v1-ai-experimental/** -text

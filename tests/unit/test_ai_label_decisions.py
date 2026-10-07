@@ -63,7 +63,13 @@ def test_resolved_bases_keep_original_and_posthoc_distinct() -> None:
     by_id = {row.query.query_id: row for row in resolved}
     assert len(by_id) == 300
     assert by_id["v01_q_039"].query.should_abstain is True
+    assert by_id["v01_q_039"].provenance == "ai_primary_recheck_imported"
+    assert (
+        by_id["v01_q_039"].final_annotation.annotator_id
+        == recheck["v01_q_039"].annotation.annotator_id
+    )
     assert by_id["v1_q_101"].query.case_type == "hard_negative"
+    assert by_id["v1_q_101"].provenance == "ai_posthoc_adjudicated"
     assert by_id["v1_q_195"].query.case_type == "clarify"
     assert by_id["v01_q_001"].query.text == recheck["v01_q_001"].text
     assert by_id["v01_q_001"].query.text != secondary["v01_q_001"].text

@@ -155,8 +155,18 @@ def resolve_bases(
             if not set(decision.relevant_tool_ids) <= known_tools:
                 raise ValueError(f"{base.query_id}: decision contains unknown Tool IDs")
             query = _query_from_decision(base, decision, corpus_hash)
-            provenance = "ai_posthoc_adjudicated"
-            annotator_id = "codex_ai_posthoc_2026_10_07"
+            if decision.reviewer_type == "ai_source_import":
+                if recheck is None or decision.source_role != "primary_recheck":
+                    raise ValueError(f"{base.query_id}: AI source import lacks primary recheck")
+                if _label_key(source_annotation) != _label_key(
+                    _annotation_from_query(query, source_annotation.annotator_id)
+                ):
+                    raise ValueError(f"{base.query_id}: source import changed the AI label")
+                provenance = "ai_primary_recheck_imported"
+                annotator_id = source_annotation.annotator_id
+            else:
+                provenance = "ai_posthoc_adjudicated"
+                annotator_id = "codex_ai_posthoc_2026_10_07"
         elif recheck is not None:
             payload = base.model_dump(mode="json")
             payload.update(
