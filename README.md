@@ -1,16 +1,34 @@
 # MCP Route Reliability Lab
 
-An evaluation-first Python toolkit for measuring whether an MCP/agent tool router
-should **route, clarify, or abstain**. It binds every prediction and policy to the
-exact router, model, Tool Corpus, feature version, and score semantics that produced
-it, then publishes reproducible reliability artifacts instead of a single accuracy
-number.
+An evidence-first Python toolkit for evaluating whether an MCP/Agent tool router
+should **route, clarify, or abstain**. It binds predictions and policies to their
+router, model, Tool Corpus, query set, and score semantics so a result can be
+reproduced and challenged.
 
-> **V0.1 is an exploratory portfolio milestone, not a production safety claim.**
-> Its 100 author-created queries include only 30 frozen Test cases. Both exported
-> policies are deliberately unavailable with reason `exploratory_v0_1`.
+> **Latest milestone: V1 AI experimental.** This dataset is AI-annotated,
+> not independently human-reviewed, and not a production safety certification.
+> Both evaluated routers failed to produce a usable policy at the configured 5%
+> target risk.
 
-![Embedding risk-coverage curve](reports/v0.1/embedding/figures/risk-coverage.png)
+The engineering case: 40 versioned tools, 300 bilingual base queries, and 90
+paired variants; template-family isolation across splits; calibration fitted only
+on Calibration; one frozen Test evaluation; and fail-closed policy artifacts. Test
+contains 100 bases plus their 90 variants, **190 records rather than 190
+independent intents**. Another 112 base labels remain generator-provisional.
+
+| Frozen V1 Test router | Top-1 | Recall@5 | Usable 5% policy |
+|---|---:|---:|---|
+| BM25 | 0.1737 | 0.2737 | No |
+| Multilingual MiniLM | 0.3211 | 0.4947 | No |
+
+Explore the [Dataset Card](data/v1-ai-experimental/DATASET_CARD.md),
+[annotation provenance](data/v1-ai-experimental/ANNOTATION_REPORT.md), and the
+[BM25](reports/v1-ai-experimental/bm25/reliability-card.md) and
+[embedding](reports/v1-ai-experimental/embedding/reliability-card.md)
+reliability cards. The detailed V1 results and the historical V0.1 milestone are
+below.
+
+![V1 AI experimental embedding risk-coverage curve](reports/v1-ai-experimental/embedding/figures/risk-coverage.png)
 
 ## Why abstention matters
 
@@ -86,6 +104,10 @@ Open `runs/fixture/reliability-card.md` and the four figures under
 `runs/fixture/figures/`.
 
 ## V0.1 benchmark
+
+> **Historical exploratory milestone, not a production safety claim.** Its 100
+> author-created queries include only 30 frozen Test cases. Both exported policies
+> are deliberately unavailable with reason `exploratory_v0_1`.
 
 V0.1 contains 20 normalized tools from six confusable domains and 100 original,
 balanced Chinese/English queries. The fixed split is 40 Development / 30 Calibration
