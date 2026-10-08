@@ -28,6 +28,10 @@ Explore the [Dataset Card](data/v1-ai-experimental/DATASET_CARD.md),
 reliability cards. The detailed V1 results and the historical V0.1 milestone are
 below.
 
+For a quick walkthrough, follow the [offline five-minute demo](docs/portfolio/demo.md)
+after installation. The [Chinese interview brief](docs/portfolio/interview-zh.md)
+separates verifiable project facts from personal contributions you must confirm.
+
 ![V1 AI experimental embedding risk-coverage curve](reports/v1-ai-experimental/embedding/figures/risk-coverage.png)
 
 ## Why abstention matters
