@@ -93,9 +93,9 @@ tests/integration/test_v1_ai_benchmark.py; README.md.
 
 - [x] Document migration provenance, report source commit, AI experimental status,
   reproduction instructions, and remaining external publication step.
-- [ ] Clone the independent repository into a fresh ignored local directory;
+- [x] Clone the independent repository into a fresh ignored local directory;
   verify historical path boundaries and run tests from the clone.
-- [ ] Check links, artifact checksums, clean Git status, and no remote; finish
+- [x] Check links, artifact checksums, clean Git status, and no remote; finish
   with concrete local results for the user's review.
 
 ## Verification Notes
@@ -110,5 +110,12 @@ tests/integration/test_v1_ai_benchmark.py; README.md.
 - Fresh read-only review found PowerShell apostrophe and @-prefix path issues;
   both are fixed and tested against real native Python argument parsing.
 - Full local suite: 187 passed; Ruff passed; mypy passed (32 source modules).
-- Local README/portfolio links: 42 targets checked. Final clone verification
-  and clean-state audit are recorded below when complete.
+- Local README/portfolio links: 42 targets checked. Independent local clone:
+  187 passed, Ruff passed, mypy passed (32 source modules); all 24 artifact hashes
+  and all 42 links passed again. Confirmed imports use cloned src, not the
+  original project tree; existing installed dependencies were reused.
+- Project root is agent/, branch main, with no remote. Dataset diff from the
+  imported starting commit is empty. Final documentation-only commit is audited
+  in the project and fast-forwarded into the clean local verification clone.
+- The Desktop parent repository received a concurrent dsh/ commit; it was
+  inspected read-only and left untouched rather than reverted to the snapshot.
