@@ -129,3 +129,11 @@ CSV writer 固定生成 LF，保留 UTF-8/BOM、字段顺序和空白复核栏�
 production-profile 候选校验、离线 fixture benchmark 均通过；独立只读
 复核没有阻塞意见。本机未运行 Python 3.12，其验收必须由线上矩阵完成。
 线上结果查看 [GitHub Actions](https://github.com/svj-w/mcp-route-reliability-lab/actions)。
+
+修复提交 `a1d666d607c65b7b154bec4260a07a0d62b79ea0` 的
+[线上 CI 验收](https://github.com/svj-w/mcp-route-reliability-lab/actions/runs/37950894963)
+已成功：Python 3.11 和 3.12 各 187 项通过、2 项跳过（Windows PowerShell
+专用测试），两组均通过类型检查、候选数据重建一致性校验、生产配置
+校验和离线演示产物检查。本地 Windows 的两项测试已执行，总计 189 项通过。
+再次验证两份冻结报告的 24 个校验和均通过；来源 SHA 仍是原来的
+`6319120606b19f34802d0c9cad4dbf65866921cd`，不冒充为 CI 修复提交。

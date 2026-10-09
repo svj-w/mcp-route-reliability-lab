@@ -64,10 +64,10 @@ data/queries.jsonl, data/sources.csv; writes the same data/v1-candidate/ snapsho
 
 - [x] Record the minimal repair and publication status in the release notes.
 - [x] Stage only the named files plus the design; check staged diff and commit.
-- [ ] Push main without force, then verify remote SHA equals local HEAD.
-- [ ] Read the push-triggered run for that SHA and require Python 3.11 and 3.12
+- [x] Push main without force, then verify remote SHA equals local HEAD.
+- [x] Read the push-triggered run for that SHA and require Python 3.11 and 3.12
   to complete successfully, including the candidate diff gate and fixture steps.
-- [ ] Record exact local/remote results, leaving a clean synchronized worktree.
+- [x] Record exact local/remote results, leaving a clean synchronized worktree.
 
 ## Verification Record
 
@@ -76,4 +76,11 @@ data/queries.jsonl, data/sources.csv; writes the same data/v1-candidate/ snapsho
 - Ruff passed; mypy --python-version 3.11 passed for 32 modules.
 - Production candidate validation and offline fixture benchmark passed.
 - Independent read-only review found no blockers. data/ and reports/ diff is empty.
-- Python 3.12 is not installed locally; remote CI remains the required gate.
+- Python 3.12 is not installed locally; the remote matrix supplied that gate.
+- Repair commit a1d666d607c65b7b154bec4260a07a0d62b79ea0 was verified remotely.
+- GitHub run 37950894963 succeeded for Python 3.11 and 3.12. Each job reported
+  187 passed, 2 skipped; the skipped tests require native Windows PowerShell.
+  Both mypy jobs checked 32 modules. Candidate rebuild/diff/validation and
+  the offline fixture benchmark and artifact checks passed on both versions.
+- Reverified all 24 frozen-report checksums and their exact source commit;
+  the data/ and reports/ diff from the first public push remains empty.
