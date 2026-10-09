@@ -1,5 +1,71 @@
 # MCP Route Reliability Lab
 
+[中文说明](#中文说明) · [English overview](#english-overview)
+
+## 中文说明
+
+MCP Route Reliability Lab 是一个基于 Python 的 **Agent 工具路由可靠性评测工具链**。
+它研究的不只是“应该选择哪个工具”，还包括“什么时候应该澄清需求或拒绝调用”，
+让工具选择错误、置信度和风险边界都能被检查与复现。
+它不是通用聊天机器人，也不是已经上线、能够自主完成任务的 Agent 产品。
+
+### 主要功能
+
+- **统一评测输入：** 固定工具描述、查询及标签，使用哈希绑定工具集合、预测与策略，
+  在评测前拒绝来源或格式不匹配的输入。
+- **比较路由基线：** 支持 BM25、多语言 MiniLM 嵌入模型，以及导入外部路由器的预测结果。
+- **置信度校准与风险策略：** 仅在 Calibration（校准集）拟合置信度并选择阈值，
+  冻结配置后评估 Test（测试集）；没有满足约束的阈值时，明确标记策略不可用。
+- **输出可审阅证据：** 生成排名、校准、风险—覆盖率与配对稳健性指标，
+  保存错误样本、图表、可靠性报告和带校验和的运行清单。
+
+### 当前实验与限制
+
+当前 **V1 AI 实验版**包含 40 个工具、300 条中英双语基础查询和 90 条配对变体。
+Test 集由 100 条基础查询及 90 条变体组成，共 190 条记录；变体复用 30 个基础意图，
+**不能将这些记录当作 190 个独立意图**。
+
+| 路由器 | Top-1 准确率 | Recall@5 | 整体 Top-1 翻转率 | 可用的 5% 风险策略 |
+|---|---:|---:|---:|---|
+| BM25 | 0.1737 | 0.2737 | 0.3667 | 无 |
+| 多语言 MiniLM | 0.3211 | 0.4947 | 0.4000 | 无 |
+
+Top-1 翻转率表示变体与其基础查询返回的首选工具不同，并不直接表示准确率改善或下降。
+两种路由器都没有可用的 5% 风险策略，因此决策翻转率为 `not_available`，而不是 0。
+
+> 数据标注来自 AI，尚未经过独立人工复核，另有 112 条基础标签仍为生成器暂定结果。
+> 本项目不是稳定 V1.0，也不提供生产安全认证或“已达到 5% 风险保证”的结论。
+
+### 快速体验
+
+需要 Python 3.11 或 3.12。以下命令在仓库根目录的 Windows PowerShell 中运行：
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev,report]"
+
+mrrl validate --tools tests/fixtures/tools.jsonl `
+  --queries tests/fixtures/queries.jsonl --profile fixture
+mrrl benchmark --config configs/fixture-bm25.yaml `
+  --tools tests/fixtures/tools.jsonl `
+  --queries tests/fixtures/queries.jsonl `
+  --run-dir runs/fixture-zh
+```
+
+安装依赖后，这个小型 BM25 示例不需要模型下载、API Key 或付费服务。
+它只演示评测流程，不复现上表的 V1 分数。运行后查看
+`runs/fixture-zh/reliability-card.md` 及 `figures/` 下的图表；如果输出目录已存在，
+请换一个新的 `--run-dir`，程序不会覆盖已有运行。
+
+更多细节见 [离线演示指南](docs/portfolio/demo.md)、
+[中文项目讲解备忘](docs/portfolio/interview-zh.md)、
+[数据来源与限制](data/v1-ai-experimental/DATASET_CARD.md)，以及
+[BM25 报告](reports/v1-ai-experimental/bm25/reliability-card.md)和
+[MiniLM 报告](reports/v1-ai-experimental/embedding/reliability-card.md)。
+
+## English overview
+
 An evidence-first Python toolkit for evaluating whether an MCP/Agent tool router
 should **route, clarify, or abstain**. It binds predictions and policies to their
 router, model, Tool Corpus, query set, and score semantics so a result can be
