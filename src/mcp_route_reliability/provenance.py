@@ -63,7 +63,7 @@ def reproduction_command(
         return shlex.join(arguments)
 
     def powershell_quote(value: str) -> str:
-        if re.fullmatch(r"[A-Za-z0-9_@%+=:,./-]+", value):
+        if re.fullmatch(r"[A-Za-z0-9_./-]+", value):
             return value
         return "'" + value.replace("'", "''") + "'"
 

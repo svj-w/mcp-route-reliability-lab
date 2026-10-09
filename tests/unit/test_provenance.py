@@ -60,11 +60,16 @@ def test_posix_reproduction_command_quotes_apostrophes_and_metacharacters(tmp_pa
 
 
 @pytest.mark.skipif(os.name != "nt", reason="PowerShell-native argument round-trip")
-def test_powershell_reproduction_command_preserves_literal_native_arguments(tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    "config_relative", ["config O'Brien $cash `literal/bm25.yaml", "@config.yaml"],
+)
+def test_powershell_reproduction_command_preserves_literal_native_arguments(
+    tmp_path: Path, config_relative: str,
+) -> None:
     powershell = shutil.which("powershell")
     if powershell is None:
         pytest.skip("PowerShell unavailable")
-    config = tmp_path / "config O'Brien $cash `literal" / "bm25.yaml"
+    config = tmp_path / config_relative
     command = reproduction_command(
         config_path=config, tools_path=tmp_path / "tools.json",
         queries_path=tmp_path / "queries.jsonl", profile="ai-experimental",
