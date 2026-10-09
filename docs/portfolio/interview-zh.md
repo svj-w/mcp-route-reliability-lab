@@ -12,7 +12,7 @@ MCP Route Reliability Lab 是一个评测 Agent 工具路由是否应调用、�
 
 以下两条描述了仓库里可核实的项目事实；投递前必须把“本人职责”改成你实际参与的模块和文件。若某项并非你做的，就删除该条或改成你真正完成的工作。不要写“独立开发全部系统”。
 
-- **评测流水线：** [本人实际负责：填写可解释的模块与文件]；项目使用版本化 Tool Corpus、绑定来源哈希的路由预测、仅在 Calibration 集拟合的置信度模型和冻结 Test 评估，输出指标、错误样本与风险策略。[架构与结果](../../README.md#architecture)
+- **评测流水线：** [本人实际负责：填写可解释的模块与文件]；项目使用版本化 Tool Corpus、绑定来源哈希的路由预测、仅在 Calibration 集拟合的置信度模型和冻结 Test 评估，输出指标、错误样本与风险策略。[架构与结果](../../README.md#系统架构)
 - **数据与基线实验：** [本人实际负责：填写数据整理、标注核查或实验复现中的真实工作]；V1 AI 实验版覆盖 40 个工具、300 条基础查询和 90 条配对变体，比较 BM25 与多语言 MiniLM。Test 集 100 条基础查询加 90 条变体的 Top-1 分别为 0.1737、0.3211；两者均未得到可用的 5% 目标风险策略。[数据来源](../../data/v1-ai-experimental/source-manifest.json) · [BM25 报告](../../reports/v1-ai-experimental/bm25/reliability-card.md) · [嵌入报告](../../reports/v1-ai-experimental/embedding/reliability-card.md)
 
 ## 60 秒项目介绍模板

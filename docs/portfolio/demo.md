@@ -1,6 +1,6 @@
 # Five-minute offline demo (after installation)
 
-This demo shows how the evaluator works; it does **not** reproduce the committed V1 AI experimental scores. The small fixture is deliberately different from the 40-tool V1 dataset. Once Python 3.11 or 3.12 and the [base/report dependencies](../../README.md#installation) are installed, the BM25 path below needs no model download, API key, or paid service.
+This demo shows how the evaluator works; it does **not** reproduce the committed V1 AI experimental scores. The small fixture is deliberately different from the 40-tool V1 dataset. Once Python 3.11 or 3.12 and the [base/report dependencies](../../README.en.md#installation) are installed, the BM25 path below needs no model download, API key, or paid service.
 
 Run the commands from the repository root in PowerShell.
 
@@ -45,6 +45,6 @@ The V1 dataset is AI-annotated and not independently human-reviewed. Its 190 Tes
 
 ## If a step fails
 
-- `mrrl` not found or an import fails: activate a Python 3.11/3.12 environment and follow [Installation](../../README.md#installation), including `.[dev,report]` for this demo. Do not substitute a different baseline package silently.
+- `mrrl` not found or an import fails: activate a Python 3.11/3.12 environment and follow [Installation](../../README.en.md#installation), including `.[dev,report]` for this demo. Do not substitute a different baseline package silently.
 - `runs/portfolio-fixture` already exists: choose a new unused `--run-dir`, such as `runs/portfolio-fixture-2`; the command intentionally refuses to overwrite a previous run.
 - The optional multilingual embedding reproduction needs `.[embedding,report]` and the pinned model revision. Its first uncached run may download model files, so it is **not** part of this offline five-minute path. The committed V1 embedding report remains inspectable offline.
