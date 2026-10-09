@@ -1012,7 +1012,7 @@ def main() -> None:
             }
         )
     with (output / "sources.csv").open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(source_rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(source_rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(sorted(source_rows, key=lambda row: row["tool_id"]))
 
@@ -1067,7 +1067,7 @@ def main() -> None:
     with (output / "annotations" / "secondary-assignment.csv").open(
         "w", encoding="utf-8-sig", newline=""
     ) as handle:
-        writer = csv.DictWriter(handle, fieldnames=assignment_fields)
+        writer = csv.DictWriter(handle, fieldnames=assignment_fields, lineterminator="\n")
         writer.writeheader()
         for row in sample:
             writer.writerow(
@@ -1089,7 +1089,7 @@ def main() -> None:
     with (output / "annotations" / "secondary-sample-manifest.csv").open(
         "w", encoding="utf-8", newline=""
     ) as handle:
-        writer = csv.DictWriter(handle, fieldnames=manifest_fields)
+        writer = csv.DictWriter(handle, fieldnames=manifest_fields, lineterminator="\n")
         writer.writeheader()
         for row in sample:
             writer.writerow(
@@ -1108,7 +1108,7 @@ def main() -> None:
     with (output / "annotations" / "primary-recheck-assignment.csv").open(
         "w", encoding="utf-8-sig", newline=""
     ) as handle:
-        writer = csv.DictWriter(handle, fieldnames=assignment_fields)
+        writer = csv.DictWriter(handle, fieldnames=assignment_fields, lineterminator="\n")
         writer.writeheader()
         for row in sorted(recheck_rows, key=lambda item: item["query_id"]):
             writer.writerow(

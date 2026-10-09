@@ -1,5 +1,10 @@
 # 本地发布准备记录
 
+> 2026-10-09 发布更新：项目已公开上传至
+> [svj-w/mcp-route-reliability-lab](https://github.com/svj-w/mcp-route-reliability-lab)。
+> 下方“尚未发布”和“未配置远程”描述的是首次推送前的验收快照。
+> 当前发布与 CI 修复记录见本文末节。
+
 本轮目标已完成：修复真实配对稳健性评估、重建两份 V1 AI experimental
 报告，并将项目隔离为可单独发布的 Git 仓库。尚未向 GitHub 发布。
 
@@ -103,3 +108,24 @@ PowerShell 回归测试真实
 下一步是选择目标 GitHub 仓库及公开/私有权限。没有这些信息，不配置 remote、
 不推送、不创建线上 release。发布时保持“AI experimental”标签，不改称稳定
 V1.0；独立人工复核仍是另一个尚未满足的发布门槛。
+
+## GitHub 发布与 CI 兼容修复
+
+首次公开推送保留了 36 个项目提交，线上 main 与本地
+`f80972f05abffc4dc33887ae3623cb11c1fef837` 一致。origin 使用同一仓库的
+HTTPS 地址；Git 登录通过官方 Git Credential Manager 完成，密码和令牌
+不写入项目文件。
+
+首次 CI 暴露了两处跨环境问题：Python 3.12 的依赖类型存根需要 3.12
+解析，但 mypy 项目默认目标仍是 3.11；候选 CSV 默认 CRLF 行尾则与 Git
+保存的 LF 不同。CI 的 424 行 CSV 差异去掉回车后全部相同。
+
+用户确认的最小修复仅让 CI mypy 跟随 Python 版本矩阵，并让四个候选
+CSV writer 固定生成 LF，保留 UTF-8/BOM、字段顺序和空白复核栏。
+新增测试在独立临时根目录重建候选快照，检查全部文件内容和 CSV 行尾。
+原始标注、已提交数据、冻结报告、依赖范围和报告来源 SHA 均未变更。
+
+修复后本地 Python 3.11 验收：189 项测试、Ruff、32 个源模块的 mypy、
+production-profile 候选校验、离线 fixture benchmark 均通过；独立只读
+复核没有阻塞意见。本机未运行 Python 3.12，其验收必须由线上矩阵完成。
+线上结果查看 [GitHub Actions](https://github.com/svj-w/mcp-route-reliability-lab/actions)。

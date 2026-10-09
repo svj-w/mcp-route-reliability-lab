@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import csv
 import json
+import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 from mcp_route_reliability.datasets import load_annotations, load_queries, load_tools
@@ -22,6 +26,46 @@ LABEL_FIELDS = (
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(encoding="utf-8-sig", newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def test_ci_mypy_targets_the_runtime_python_matrix() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    assert "python -m mypy --python-version ${{ matrix.python-version }} src" in workflow
+
+
+def test_candidate_rebuild_matches_frozen_snapshot_with_lf_csv(tmp_path: Path) -> None:
+    scripts = tmp_path / "scripts"
+    scripts.mkdir()
+    script = scripts / "build_v1_candidate.py"
+    shutil.copy2(ROOT / "scripts" / script.name, script)
+    inputs = tmp_path / "data"
+    inputs.mkdir()
+    for name in ("tools.json", "queries.jsonl", "sources.csv"):
+        shutil.copy2(ROOT / "data" / name, inputs / name)
+    subprocess.run(
+        [sys.executable, str(script)], cwd=tmp_path, check=True,
+        capture_output=True, text=True, timeout=30,
+        env={**os.environ, "PYTHONPATH": str(ROOT / "src")},
+    )
+    rebuilt = inputs / "v1-candidate"
+    csv_paths = sorted(rebuilt.rglob("*.csv"))
+    assert len(csv_paths) == 4
+    bom_names = {"primary-recheck-assignment.csv", "secondary-assignment.csv"}
+    for path in csv_paths:
+        payload = path.read_bytes()
+        assert b"\r\n" not in payload, f"CSV uses CRLF: {path.name}"
+        assert payload.endswith(b"\n")
+        assert payload.startswith(b"\xef\xbb\xbf") == (path.name in bom_names)
+    frozen_paths = {
+        path.relative_to(CANDIDATE) for path in CANDIDATE.rglob("*") if path.is_file()
+    }
+    rebuilt_paths = {
+        path.relative_to(rebuilt) for path in rebuilt.rglob("*") if path.is_file()
+    }
+    assert rebuilt_paths == frozen_paths
+    for relative in frozen_paths:
+        expected = (CANDIDATE / relative).read_bytes().replace(b"\r\n", b"\n")
+        assert (rebuilt / relative).read_bytes() == expected, str(relative)
 
 
 def test_v1_candidate_is_complete_but_not_misrepresented_as_reviewed() -> None:
