@@ -13,7 +13,7 @@ def case(
     base_query_id: str,
     perturbation_type: str | None,
     top1: str,
-    accepted: bool,
+    accepted: bool | None,
     confidence: float,
     correct: bool,
 ) -> EvaluatedCase:
@@ -78,3 +78,19 @@ def test_duplicate_or_malformed_base_is_rejected() -> None:
     malformed = case("not-base", "b1", None, "tool.a", True, 0.9, True)
     with pytest.raises(ValueError, match="base record"):
         paired_robustness([malformed], [])
+
+
+def test_unavailable_decisions_do_not_manufacture_zero_flip_rates() -> None:
+    bases = [row.model_copy(update={"accepted": None}) for row in base_rows()]
+    variants = [row.model_copy(update={"accepted": None}) for row in variant_rows()]
+    result = paired_robustness(bases, variants)
+    assert result.overall.top1_flip_rate == 0.5
+    assert result.overall.decision_flip_rate is None
+    assert all(row.decision_flipped is None for row in result.paired_deltas)
+    assert all(row.decision_flip_rate is None for row in result.by_perturbation.values())
+
+
+def test_mixed_decision_availability_is_rejected() -> None:
+    variants = [row.model_copy(update={"accepted": None}) for row in variant_rows()]
+    with pytest.raises(ValueError, match="mixed decision availability"):
+        paired_robustness(base_rows(), variants)

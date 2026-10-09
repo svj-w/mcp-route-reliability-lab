@@ -47,6 +47,7 @@ from mcp_route_reliability.evaluation.ranking import (
     per_case_errors,
     ranking_metrics,
 )
+from mcp_route_reliability.evaluation.robustness import EvaluatedCase, paired_robustness
 from mcp_route_reliability.evaluation.selective import risk_coverage_curve
 from mcp_route_reliability.hashing import canonical_json_bytes, canonical_sha256
 from mcp_route_reliability.importers.jsonl import import_predictions
@@ -60,10 +61,12 @@ from mcp_route_reliability.models import (
     StrictModel,
     ToolRecord,
 )
+from mcp_route_reliability.provenance import reproduction_command, resolve_source_commit
 from mcp_route_reliability.reporting import (
     ErrorExportRow,
     EvaluationBundle,
     MethodReport,
+    RobustnessSlice,
     build_reliability_card,
     errors_csv_rows,
     render_figures,
@@ -469,6 +472,8 @@ def _build_benchmark(
     tools_path: Path,
     queries_path: Path,
     run_dir: Path,
+    *,
+    config_path: Path,
 ) -> dict[str, object]:
     tools = load_tools(tools_path)
     queries = load_queries(queries_path)
@@ -532,7 +537,8 @@ def _build_benchmark(
     calibrator_payload = fitted.to_payload()
     reason_hint_config = _fixture_reason_config(len(calibration_cases))
     calibrator_payload["reason_hint_config"] = reason_hint_config.model_dump(mode="json")
-    source_commit = "working-tree"
+    project_root = Path(__file__).resolve().parents[2]
+    source_commit = resolve_source_commit(project_root)
     provenance = PolicyProvenance(
         router_id=predictions[0].router_id,
         router_version=predictions[0].router_version,
@@ -607,6 +613,47 @@ def _build_benchmark(
         test_cases,
         test_predictions,
         known_tool_ids={tool.tool_id for tool in tools},
+    )
+    robustness = None
+    if any(case.perturbation_type is not None for case in test_cases):
+        evaluated = [
+            EvaluatedCase(
+                query_id=case.query_id,
+                base_query_id=case.base_query_id,
+                perturbation_type=case.perturbation_type,
+                top1_tool_id=prediction.candidates[0].tool_id,
+                accepted=(
+                    bool(probability >= selected_policy.threshold)
+                    if selected_policy.available and selected_policy.threshold is not None
+                    else None
+                ),
+                confidence=float(probability),
+                correct=bool(correct),
+            )
+            for case, prediction, probability, correct in zip(
+                test_cases, test_predictions, test_probability, y_correct, strict=True
+            )
+        ]
+        robustness = paired_robustness(
+            [row for row in evaluated if row.perturbation_type is None],
+            [row for row in evaluated if row.perturbation_type is not None],
+        )
+    robustness_slices = (
+        tuple(
+            RobustnessSlice(
+                condition=condition,
+                pair_count=metrics.pair_count,
+                accuracy_shift=metrics.mean_accuracy_shift,
+                top1_flip_rate=metrics.top1_flip_rate,
+                decision_flip_rate=metrics.decision_flip_rate,
+                confidence_shift=metrics.mean_confidence_shift,
+            )
+            for condition, metrics in {
+                "overall": robustness.overall, **robustness.by_perturbation,
+            }.items()
+        )
+        if robustness is not None
+        else ()
     )
     bootstrap_replicates = (
         settings.fixture_bootstrap_replicates
@@ -718,15 +765,17 @@ def _build_benchmark(
         conservative_policy=conservative_policy,
         selected_policy_kind=settings.selected_policy_kind,
         bootstrap_intervals={"routing_error": interval},
-        robustness_slices=(),
+        robustness_slices=robustness_slices,
         errors=error_exports,
         limitations=(
             profile_limitation,
             "Synthetic class balance may differ from production traffic.",
         ),
         commands=(
-            f"mrrl benchmark --config configs/{settings.router}.yaml --tools TOOLS "
-            "--queries QUERIES --run-dir RUN",
+            reproduction_command(
+                config_path=config_path, tools_path=tools_path, queries_path=queries_path,
+                profile=settings.profile, router=settings.router, project_root=project_root,
+            ),
         ),
     )
     card = build_reliability_card(bundle)
@@ -748,6 +797,18 @@ def _build_benchmark(
         "selective": selective.model_dump(mode="json"),
         "bootstrap": interval.model_dump(mode="json"),
         "lifecycle": lifecycle,
+        "robustness": {
+            "status": "computed" if robustness is not None else "not_available",
+            "reason": None if robustness is not None else "no_test_variants",
+            "decision_status": (
+                "computed" if selected_policy.available else "policy_unavailable"
+            ) if robustness is not None else "not_available",
+            **(
+                robustness.model_dump(mode="json")
+                if robustness is not None
+                else {"overall": None, "by_perturbation": {}, "paired_deltas": []}
+            ),
+        },
     }
     all_errors = {
         row.query_id: row
@@ -820,7 +881,9 @@ def benchmark_command(
     """Run validation, routing, calibration, frozen Test evaluation, and reporting."""
 
     _execute(
-        lambda: _build_benchmark(_load_config(config), tools, queries, run_dir),
+        lambda: _build_benchmark(
+            _load_config(config), tools, queries, run_dir, config_path=config
+        ),
         json_output=json_output,
         message=lambda result: f"benchmark complete: {result['run_dir']}",
     )

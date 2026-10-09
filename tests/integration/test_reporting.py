@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from mcp_route_reliability.evaluation.bootstrap import BootstrapInterval
 from mcp_route_reliability.evaluation.calibration import ECEBin
 from mcp_route_reliability.evaluation.selective import RiskCoveragePoint
@@ -136,6 +138,7 @@ def bundle() -> EvaluationBundle:
         robustness_slices=(
             RobustnessSlice(
                 condition="paraphrase",
+                pair_count=50,
                 accuracy_shift=-0.02,
                 top1_flip_rate=0.08,
                 decision_flip_rate=0.05,
@@ -143,6 +146,7 @@ def bundle() -> EvaluationBundle:
             ),
             RobustnessSlice(
                 condition="cross_language",
+                pair_count=50,
                 accuracy_shift=-0.07,
                 top1_flip_rate=0.18,
                 decision_flip_rate=0.12,
@@ -194,11 +198,36 @@ def test_render_figures_writes_four_valid_png_files(tmp_path: Path) -> None:
 def test_empty_robustness_is_reported_as_unavailable(tmp_path: Path) -> None:
     empty = bundle().model_copy(update={"robustness_slices": ()})
     card = build_reliability_card(empty)
-    assert "No perturbation variants in this dataset" in card
+    assert "Paired robustness not computed" in card
+    assert "No perturbation variants" not in card
     robustness = next(
         path for path in render_figures(empty, tmp_path) if path.name == "robustness.png"
     )
     assert robustness.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+
+
+def test_unavailable_decision_metrics_are_explicit_in_card_and_figure(tmp_path: Path) -> None:
+    original = bundle()
+    unavailable = original.model_copy(
+        update={
+            "selected_policy_kind": "conservative",
+            "robustness_slices": tuple(
+                row.model_copy(update={"decision_flip_rate": None})
+                for row in original.robustness_slices
+            ),
+        }
+    )
+    card = build_reliability_card(unavailable)
+    assert "| paraphrase | 50 | -0.0200 | 0.0800 | not_available | -0.0300 |" in card
+    assert "selected policy is unavailable" in card
+    assert len(render_figures(unavailable, tmp_path)) == 4
+
+
+def test_bundle_rejects_numeric_decision_flips_for_unavailable_policy() -> None:
+    payload = bundle().model_dump()
+    payload["selected_policy_kind"] = "conservative"
+    with pytest.raises(ValueError, match="unavailable policies cannot report numeric"):
+        EvaluationBundle.model_validate(payload)
 
 
 def test_error_csv_rows_include_required_diagnostics() -> None:

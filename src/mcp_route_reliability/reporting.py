@@ -36,9 +36,10 @@ class MethodReport(StrictModel):
 
 class RobustnessSlice(StrictModel):
     condition: str = Field(min_length=1)
+    pair_count: int = Field(ge=1)
     accuracy_shift: float = Field(ge=-1, le=1)
     top1_flip_rate: float = Field(ge=0, le=1)
-    decision_flip_rate: float = Field(ge=0, le=1)
+    decision_flip_rate: float | None = Field(ge=0, le=1)
     confidence_shift: float
 
     @field_validator("confidence_shift")
@@ -107,6 +108,14 @@ class EvaluationBundle(StrictModel):
             raise ValueError("empirical_policy has the wrong policy kind")
         if self.conservative_policy.policy_kind != "conservative":
             raise ValueError("conservative_policy has the wrong policy kind")
+        selected_policy = (
+            self.empirical_policy if self.selected_policy_kind == "empirical"
+            else self.conservative_policy
+        )
+        if not selected_policy.available and any(
+            item.decision_flip_rate is not None for item in self.robustness_slices
+        ):
+            raise ValueError("unavailable policies cannot report numeric decision flip rates")
         return self
 
 
@@ -220,20 +229,24 @@ def build_reliability_card(bundle: EvaluationBundle) -> str:
             "",
             "## Paired robustness",
             "",
-            "| Condition | Accuracy shift | Top-1 flip | Decision flip | Confidence shift |",
-            "|---|---:|---:|---:|---:|",
+            "Shifts are variant minus paired base. Decision flip is `not_available` "
+            "when the selected policy is unavailable.",
+            "",
+            "| Condition | Pairs | Accuracy shift | Top-1 flip | Decision flip | "
+            "Confidence shift |",
+            "|---|---:|---:|---:|---:|---:|",
         ]
     )
     for item in bundle.robustness_slices:
         lines.append(
-            f"| {item.condition} | {_format_metric(item.accuracy_shift)} | "
+            f"| {item.condition} | {item.pair_count} | {_format_metric(item.accuracy_shift)} | "
             f"{_format_metric(item.top1_flip_rate)} | "
             f"{_format_metric(item.decision_flip_rate)} | "
             f"{_format_metric(item.confidence_shift)} |"
         )
     if not bundle.robustness_slices:
         lines.append(
-            "| No perturbation variants in this dataset | not_available | "
+            "| Paired robustness not computed | not_available | not_available | "
             "not_available | not_available | not_available |"
         )
     lines.extend(
@@ -258,6 +271,8 @@ def build_reliability_card(bundle: EvaluationBundle) -> str:
             "- This report must not be interpreted as a safety certification.",
             "",
             "## Reproduction commands",
+            "",
+            "Run from the repository root. Use a new `--run-dir` for each reproduction.",
             "",
             "```console",
             *bundle.commands,
@@ -359,19 +374,31 @@ def render_figures(bundle: EvaluationBundle, output_dir: Path) -> list[Path]:
             width,
             label="Top-1 flip",
         )
-        axis.bar(
-            [value + width / 2 for value in positions],
-            [item.decision_flip_rate for item in bundle.robustness_slices],
-            width,
-            label="Decision flip",
-        )
+        available_decisions = [
+            (position, item.decision_flip_rate)
+            for position, item in zip(positions, bundle.robustness_slices, strict=True)
+            if item.decision_flip_rate is not None
+        ]
+        if available_decisions:
+            axis.bar(
+                [position + width / 2 for position, _ in available_decisions],
+                [rate for _, rate in available_decisions],
+                width,
+                label="Decision flip",
+            )
+        else:
+            figure.text(
+                0.5, 0.02, "Decision flip: not_available (selected policy unavailable)",
+                horizontalalignment="center", fontsize=9,
+            )
         axis.set_xticks(positions, conditions)
+        axis.set_ylim(0.0, 1.0)
         axis.legend()
     else:
         axis.text(
             0.5,
             0.5,
-            "No perturbation variants in this dataset",
+            "Paired robustness not computed",
             horizontalalignment="center",
             verticalalignment="center",
             transform=axis.transAxes,
@@ -380,7 +407,7 @@ def render_figures(bundle: EvaluationBundle, output_dir: Path) -> list[Path]:
         axis.set_ylim(0.0, 1.0)
     axis.set(title="Paired robustness", ylabel="Rate")
     path = output_dir / "robustness.png"
-    figure.tight_layout()
+    figure.tight_layout(rect=(0, 0.05, 1, 1))
     figure.savefig(path, dpi=150)
     plt.close(figure)
     paths.append(path)

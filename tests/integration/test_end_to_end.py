@@ -90,6 +90,10 @@ def test_cpu_fixture_benchmark_is_frozen_bound_and_reproducible(tmp_path: Path) 
     assert set(lifecycle["fit_query_ids"]).isdisjoint(lifecycle["test_query_ids"])
     assert len(lifecycle["fit_query_ids"]) == 6
     assert len(lifecycle["test_query_ids"]) == 6
+    assert metrics["robustness"]["status"] == "not_available"
+    assert metrics["robustness"]["reason"] == "no_test_variants"
+    assert metrics["robustness"]["overall"] is None
+    assert metrics["robustness"]["paired_deltas"] == []
 
     manifest = load_json(first_dir / "manifest.json")
     policy = load_json(first_dir / "policy.json")

@@ -34,11 +34,11 @@ committing the implementation and regenerating provenance-bound reports.
 **Files:** Temporary migration helper under .deps; new agent/.git metadata.
 **Interfaces:** Git fast-export scoped to agent/; fast-import with stripped prefix.
 
-- [ ] Export the current project branch with full filtered trees, preserving data
+- [x] Export the current project branch with full filtered trees, preserving data
   blocks unchanged and rejecting paths outside agent/.
-- [ ] Import into a fresh repository; compare `git ls-tree -r HEAD` object IDs to
+- [x] Import into a fresh repository; compare `git ls-tree -r HEAD` object IDs to
   the original project tree. Inspect all historical paths and refs.
-- [ ] Install verified Git metadata and commit the reviewed design and plan.
+- [x] Install verified Git metadata and commit the reviewed design and plan.
 
 ### Task 2: Connect paired evaluation and truthful reporting
 
@@ -51,22 +51,22 @@ tests/unit/test_provenance.py; golden report and example.
 `RobustnessMetrics.decision_flip_rate: float | None`;
 `RobustnessSlice.pair_count: int`; `resolve_source_commit(root: Path) -> str`.
 
-- [ ] Add and run regression assertions:
+- [x] Add and run regression assertions:
   ```python
   assert result.overall.decision_flip_rate is None
   assert result.by_perturbation["noise"].pair_count == 30
   assert "Paired robustness not computed" in empty_card
   assert "not_available" in unavailable_card
   ```
-- [ ] Permit all-null decisions and reject mixed availability in the paired
+- [x] Permit all-null decisions and reject mixed availability in the paired
   evaluator. Build evaluated cases from Test top-1 IDs, calibrated confidence,
   routing correctness, and the already-selected policy.
-- [ ] Emit overall/by-condition/count/deltas under metrics.json robustness;
+- [x] Emit overall/by-condition/count/deltas under metrics.json robustness;
   convert those same aggregates into report rows. Show unavailable decision
   metrics honestly in both table and figure.
-- [ ] Capture Git commit and actual input/config arguments; use a fresh concrete
+- [x] Capture Git commit and actual input/config arguments; use a fresh concrete
   reproduction directory and test command round-tripping with spaced paths.
-- [ ] Run focused tests, then full pytest, Ruff, and mypy; commit implementation.
+- [x] Run focused tests, then full pytest, Ruff, and mypy; commit implementation.
 
 ### Task 3: Rebuild and verify frozen V1 reports
 

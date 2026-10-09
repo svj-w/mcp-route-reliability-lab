@@ -18,7 +18,7 @@ class EvaluatedCase(StrictModel):
     base_query_id: str = Field(min_length=1)
     perturbation_type: PerturbationType | None
     top1_tool_id: str = Field(min_length=1)
-    accepted: bool
+    accepted: bool | None
     confidence: float
     correct: bool
 
@@ -35,7 +35,7 @@ class PairedDelta(StrictModel):
     variant_query_id: str
     perturbation_type: PerturbationType
     top1_flipped: bool
-    decision_flipped: bool
+    decision_flipped: bool | None
     confidence_shift: float
     accuracy_shift: int = Field(ge=-1, le=1)
 
@@ -43,7 +43,7 @@ class PairedDelta(StrictModel):
 class RobustnessMetrics(StrictModel):
     pair_count: int = Field(ge=1)
     top1_flip_rate: float = Field(ge=0, le=1)
-    decision_flip_rate: float = Field(ge=0, le=1)
+    decision_flip_rate: float | None = Field(ge=0, le=1)
     mean_confidence_shift: float
     mean_accuracy_shift: float = Field(ge=-1, le=1)
 
@@ -60,7 +60,13 @@ def _aggregate(deltas: Sequence[PairedDelta]) -> RobustnessMetrics:
     return RobustnessMetrics(
         pair_count=len(deltas),
         top1_flip_rate=statistics.fmean(delta.top1_flipped for delta in deltas),
-        decision_flip_rate=statistics.fmean(delta.decision_flipped for delta in deltas),
+        decision_flip_rate=(
+            statistics.fmean(
+                delta.decision_flipped for delta in deltas if delta.decision_flipped is not None
+            )
+            if all(delta.decision_flipped is not None for delta in deltas)
+            else None
+        ),
         mean_confidence_shift=statistics.fmean(delta.confidence_shift for delta in deltas),
         mean_accuracy_shift=statistics.fmean(delta.accuracy_shift for delta in deltas),
     )
@@ -83,6 +89,8 @@ def paired_robustness(
         bases_by_id[row.base_query_id] = row
     if not variants:
         raise ValueError("paired robustness requires nonempty variant records")
+    if len({row.accepted is not None for row in (*base, *variants)}) != 1:
+        raise ValueError("paired robustness rejects mixed decision availability")
 
     seen_query_ids: set[str] = set()
     seen_pairs: set[tuple[str, PerturbationType]] = set()
@@ -109,7 +117,11 @@ def paired_robustness(
                 variant_query_id=variant.query_id,
                 perturbation_type=variant.perturbation_type,
                 top1_flipped=variant.top1_tool_id != base_row.top1_tool_id,
-                decision_flipped=variant.accepted != base_row.accepted,
+                decision_flipped=(
+                    variant.accepted != base_row.accepted
+                    if variant.accepted is not None and base_row.accepted is not None
+                    else None
+                ),
                 confidence_shift=variant.confidence - base_row.confidence,
                 accuracy_shift=int(variant.correct) - int(base_row.correct),
             )

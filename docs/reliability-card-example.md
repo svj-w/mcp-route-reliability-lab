@@ -57,10 +57,12 @@ Intervals resample complete `base_query_id` groups; variants are never independe
 
 ## Paired robustness
 
-| Condition | Accuracy shift | Top-1 flip | Decision flip | Confidence shift |
-|---|---:|---:|---:|---:|
-| paraphrase | -0.0200 | 0.0800 | 0.0500 | -0.0300 |
-| cross_language | -0.0700 | 0.1800 | 0.1200 | -0.0900 |
+Shifts are variant minus paired base. Decision flip is `not_available` when the selected policy is unavailable.
+
+| Condition | Pairs | Accuracy shift | Top-1 flip | Decision flip | Confidence shift |
+|---|---:|---:|---:|---:|---:|
+| paraphrase | 50 | -0.0200 | 0.0800 | 0.0500 | -0.0300 |
+| cross_language | 50 | -0.0700 | 0.1800 | 0.1200 | -0.0900 |
 
 ## Error diagnostics
 
@@ -75,6 +77,8 @@ Exported error rows: **1**. The CSV includes query text, gold set, Top-K, decisi
 - This report must not be interpreted as a safety certification.
 
 ## Reproduction commands
+
+Run from the repository root. Use a new `--run-dir` for each reproduction.
 
 ```console
 mrrl evaluate --config configs/v1.yaml
