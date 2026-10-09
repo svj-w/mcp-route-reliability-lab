@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -37,6 +38,72 @@ def test_frozen_reports_bind_same_query_set_and_test_once() -> None:
         assert metrics["lifecycle"]["test_evaluations"] == 1
         assert metrics["ranking"]["sample_size"] == 190
         assert "not independent human review" in card
+        assert manifest["status"] == "complete"
+        assert manifest["source_commit"] == "6319120606b19f34802d0c9cad4dbf65866921cd"
+        assert len(manifest["artifact_checksums"]) == 12
+        for relative, expected_checksum in manifest["artifact_checksums"].items():
+            actual = "sha256:" + hashlib.sha256((report / relative).read_bytes()).hexdigest()
+            assert actual == expected_checksum, relative
+        command = manifest["commands"][0]
+        assert f"--config configs/v1-ai-{router}.yaml" in command
+        assert "--tools data/v1-ai-experimental/tools.json" in command
+        assert "--queries data/v1-ai-experimental/queries.jsonl" in command
+        for name in ("policy.json", "policy-empirical.json", "policy-conservative.json"):
+            policy = json.loads((report / name).read_text(encoding="utf-8"))
+            assert policy["source_commit"] == manifest["source_commit"]
+            assert policy["available"] is False
+            assert policy["threshold"] is None
+            assert policy["target_risk"] == 0.05
+        robustness = metrics["robustness"]
+        assert robustness["status"] == "computed"
+        assert robustness["decision_status"] == "policy_unavailable"
+        assert set(robustness["by_perturbation"]) == {"paraphrase", "cross_language", "noise"}
+        predictions = {
+            row["query_id"]: row
+            for row in map(json.loads, (report / "predictions.jsonl").read_text().splitlines())
+        }
+        by_id = {row.query_id: row for row in queries if row.split == "test"}
+        variants = {key: row for key, row in by_id.items() if row.perturbation_type is not None}
+        assert len(predictions) == 390
+        deltas = robustness["paired_deltas"]
+        assert len(deltas) == len(variants) == 90
+        assert {row["variant_query_id"] for row in deltas} == set(variants)
+        for delta in deltas:
+            variant = variants[delta["variant_query_id"]]
+            base = by_id[variant.base_query_id]
+            top1 = predictions[variant.query_id]["candidates"][0]["tool_id"]
+            base_top1 = predictions[base.query_id]["candidates"][0]["tool_id"]
+            assert delta["base_query_id"] == base.query_id
+            assert delta["perturbation_type"] == variant.perturbation_type
+            assert delta["decision_flipped"] is None
+            assert delta["top1_flipped"] == (top1 != base_top1)
+            correct = not variant.should_abstain and top1 in variant.relevant_tool_ids
+            base_correct = not base.should_abstain and base_top1 in base.relevant_tool_ids
+            assert delta["accuracy_shift"] == int(correct) - int(base_correct)
+        slices = {"overall": robustness["overall"], **robustness["by_perturbation"]}
+        for condition, aggregate in slices.items():
+            selected = deltas if condition == "overall" else [
+                row for row in deltas if row["perturbation_type"] == condition
+            ]
+            assert aggregate["pair_count"] == len(selected) == (
+                90 if condition == "overall" else 30
+            )
+            assert aggregate["decision_flip_rate"] is None
+            for metric, field in (
+                ("top1_flip_rate", "top1_flipped"),
+                ("mean_accuracy_shift", "accuracy_shift"),
+                ("mean_confidence_shift", "confidence_shift"),
+            ):
+                assert aggregate[metric] == pytest.approx(
+                    sum(row[field] for row in selected) / len(selected)
+                )
+            expected_row = (
+                f"| {condition} | {len(selected)} | {aggregate['mean_accuracy_shift']:.4f} | "
+                f"{aggregate['top1_flip_rate']:.4f} | not_available | "
+                f"{aggregate['mean_confidence_shift']:.4f} |"
+            )
+            assert expected_row in card
+        assert "No perturbation variants" not in card
         hashes.add(manifest["tool_corpus_hash"])
     assert hashes == {"sha256:8983296fa7cc6343c94a11fe15307e87f3bf5c6f03bcd036e971b9e9e18de069"}
 

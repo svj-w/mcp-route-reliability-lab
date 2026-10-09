@@ -74,26 +74,41 @@ tests/unit/test_provenance.py; golden report and example.
 tests/integration/test_v1_ai_benchmark.py; README.md.
 **Interfaces:** Existing benchmark CLI and checksum-bound RunManifest.
 
-- [ ] Run both commands from the committed implementation:
+- [x] Run both commands from the committed implementation:
   ```console
   python -m mcp_route_reliability.cli benchmark --config configs/v1-ai-bm25.yaml --tools data/v1-ai-experimental/tools.json --queries data/v1-ai-experimental/queries.jsonl --run-dir runs/release-bm25 --json
   python -m mcp_route_reliability.cli benchmark --config configs/v1-ai-embedding.yaml --tools data/v1-ai-experimental/tools.json --queries data/v1-ai-experimental/queries.jsonl --run-dir runs/release-embedding --json
   ```
-- [ ] Check both outputs have 190 Test records, 90 pairs, three 30-pair conditions,
+- [x] Check both outputs have 190 Test records, 90 pairs, three 30-pair conditions,
   null decision flips where policy unavailable, exact commit provenance, and
   correct input hashes. Verify every manifest checksum.
-- [ ] Replace frozen report artifacts only after verification. Add frozen report
+- [x] Replace frozen report artifacts only after verification. Add frozen report
   assertions for these invariants and update README with paired results.
-- [ ] Run affected tests and commit the verified reports and documentation.
+- [x] Run affected tests and commit the verified reports and documentation.
 
 ### Task 4: Verify publication handoff
 
 **Files:** docs/portfolio/release-preparation.md.
 **Interfaces:** Independent repository root and no configured remote.
 
-- [ ] Document migration provenance, report source commit, AI experimental status,
+- [x] Document migration provenance, report source commit, AI experimental status,
   reproduction instructions, and remaining external publication step.
 - [ ] Clone the independent repository into a fresh ignored local directory;
   verify historical path boundaries and run tests from the clone.
 - [ ] Check links, artifact checksums, clean Git status, and no remote; finish
   with concrete local results for the user's review.
+
+## Verification Notes
+
+- Both reports were generated from clean commit
+  `6319120606b19f34802d0c9cad4dbf65866921cd` and retain that exact provenance.
+- Independently reconstructed all 90 pairs from each run's predictions,
+  confidence features, and persisted calibrator; verified all 24 artifact hashes.
+- Ranking and candidate order stayed unchanged. MiniLM score drift versus the
+  previous report was at most 1.4758793615010646e-7; this is disclosed, not hidden
+  behind a byte-identical reproducibility claim.
+- Fresh read-only review found PowerShell apostrophe and @-prefix path issues;
+  both are fixed and tested against real native Python argument parsing.
+- Full local suite: 187 passed; Ruff passed; mypy passed (32 source modules).
+- Local README/portfolio links: 42 targets checked. Final clone verification
+  and clean-state audit are recorded below when complete.

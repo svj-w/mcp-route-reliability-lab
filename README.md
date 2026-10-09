@@ -31,6 +31,8 @@ below.
 For a quick walkthrough, follow the [offline five-minute demo](docs/portfolio/demo.md)
 after installation. The [Chinese interview brief](docs/portfolio/interview-zh.md)
 separates verifiable project facts from personal contributions you must confirm.
+The [local release checklist](docs/portfolio/release-preparation.md) records the
+isolated Git history, report provenance, verification, and remaining publication step.
 
 ![V1 AI experimental embedding risk-coverage curve](reports/v1-ai-experimental/embedding/figures/risk-coverage.png)
 
@@ -225,6 +227,27 @@ cross-split collisions under the documented normalization. This does not prove
 that all semantic paraphrases are isolated. The 90 Test variants share 30 base
 intents, so 190 records are not 190 independent intents.
 
+### Paired robustness
+
+Each variant is compared with its own Test base, using the frozen routing outputs
+and Calibration-fitted confidence model. No Test-based fitting or policy tuning is
+performed. All 90 pairs are present: 30 paraphrase, 30 cross-language, and 30 noise.
+
+| Condition | Pairs | BM25 Top-1 flip | MiniLM Top-1 flip |
+|---|---:|---:|---:|
+| Overall | 90 | 0.3667 | 0.4000 |
+| Paraphrase | 30 | 0.1667 | 0.3000 |
+| Cross-language | 30 | 0.9333 | 0.5333 |
+| Noise | 30 | 0.0000 | 0.3667 |
+
+Top-1 flip means the returned tool changed; it does not by itself mean correctness
+improved or worsened. Overall mean accuracy shift is 0.0000 for both routers;
+mean confidence shift is +0.0611 for BM25 and +0.0413 for MiniLM. Shifts are
+**variant minus base**. Per-condition shifts and all 90 deltas are in each report's
+`metrics.json`. Decision flip is **not_available**, not zero: neither selected
+5% policy supplies a usable decision threshold. The pairs reuse 30 base intents,
+so they are not 90 independent experiments.
+
 ### Reproduce this experiment
 
 Use Python 3.11/3.12 and the installation instructions above, including the
@@ -246,8 +269,11 @@ mrrl benchmark --config configs/v1-ai-embedding.yaml `
   --run-dir runs/v1-ai-embedding
 ```
 
-The published reports were generated on Windows with Python 3.11 and the pinned
-multilingual MiniLM revision. These are single runs on synthetic cases, not
+The checked-in reports were regenerated from clean source commit
+`6319120606b19f34802d0c9cad4dbf65866921cd` on Windows with Python 3.11 and the
+pinned multilingual MiniLM revision. The embedding run used two CPU threads;
+see the [release checklist](docs/portfolio/release-preparation.md) for settings
+and the observed numerical drift. These are single runs on synthetic cases, not
 traffic-weighted performance estimates.
 
 ## V1.0 candidate data — human review pending
